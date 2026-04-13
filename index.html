@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIBORI MINI 4WD | 木彫ミニ四駆工房</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red:    #E8201A;
+      --black:  #0D0D0D;
+      --white:  #FFFFFF;
+      --gray:   #F5F5F5;
+      --gray2:  #E8E8E8;
+      --gray3:  #999;
+      --dark:   #1A1A1A;
+      --gold:   #C8900A;
+      --wood:   #B87333;
+      --font-en: 'Oswald', sans-serif;
+      --font-jp: 'Noto Sans JP', sans-serif;
+      --font-serif: 'Noto Serif JP', serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-jp); color: var(--black); background: var(--white); -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ===== HEADER / NAV ===== */
+    #header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 3px solid var(--red);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 64px;
+    }
+    .header-logo {
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .header-logo-mark {
+      width: 42px; height: 42px;
+      background: var(--red);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 1px;
+    }
+    .header-logo-mark span {
+      font-family: var(--font-en);
+      font-size: 0.55rem; font-weight: 700;
+      color: var(--white); letter-spacing: 0.05em; line-height: 1;
+    }
+    .header-logo-text {
+      display: flex; flex-direction: column;
+    }
+    .header-logo-text strong {
+      font-family: var(--font-en);
+      font-size: 1.15rem; font-weight: 700;
+      letter-spacing: 0.08em; color: var(--black); line-height: 1;
+    }
+    .header-logo-text small {
+      font-size: 0.6rem; letter-spacing: 0.18em;
+      color: var(--gray3); margin-top: 2px;
+    }
+    .header-nav {
+      display: flex; align-items: center; gap: 0;
+    }
+    .header-nav a {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em;
+      padding: 0 1.1rem; height: 64px;
+      display: flex; align-items: center;
+      color: var(--black); position: relative;
+      transition: color 0.2s;
+    }
+    .header-nav a::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--red);
+      transform: scaleX(0); transition: transform 0.2s;
+    }
+    .header-nav a:hover { color: var(--red); }
+    .header-nav a:hover::after { transform: scaleX(1); }
+    .header-cta {
+      background: var(--red); color: var(--white) !important;
+      font-family: var(--font-jp); font-size: 0.8rem !important;
+      font-weight: 700 !important; letter-spacing: 0.1em !important;
+      padding: 0 1.6rem !important; height: 42px !important;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .header-cta::after { display: none !important; }
+    .header-cta:hover { background: #C01010 !important; transform: translateY(-1px) !important; }
+
+    /* ===== HERO ===== */
+    .hero {
+      margin-top: 64px;
+      position: relative; overflow: hidden;
+      background: var(--black);
+      min-height: calc(100vh - 64px);
+      display: flex; align-items: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0D0D0D 0%, #1A1208 40%, #2A1808 70%, #1A1A1A 100%);
+    }
+    /* 木目テクスチャ背景 */
+    .hero-wood-texture {
+      position: absolute; inset: 0; opacity: 0.06;
+      background-image: repeating-linear-gradient(
+        172deg,
+        transparent 0px, transparent 18px,
+        rgba(180,120,60,0.8) 18px, rgba(180,120,60,0.8) 19px
+      );
+    }
+    .hero-noise {
+      position: absolute; inset: 0; opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
+    /* 赤いライン装飾（バンダイ風） */
+    .hero-redline {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+      background: var(--red);
+    }
+    .hero-redline2 {
+      position: absolute; left: 14px; top: 0; bottom: 0; width: 2px;
+      background: rgba(232,32,26,0.4);
+    }
+
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 0;
+      width: 100%; max-width: 1440px; margin: 0 auto;
+      padding: 5rem 5rem 5rem 6rem;
+    }
+
+    .hero-content { padding-right: 3rem; }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-en);
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.32em; color: var(--red);
+      margin-bottom: 1.8rem;
+    }
+    .hero-tag::before {
+      content: ''; width: 24px; height: 2px; background: var(--red);
+    }
+
+    .hero-title {
+      font-family: var(--font-en);
+      font-size: clamp(3.5rem, 6vw, 7rem);
+      font-weight: 700; line-height: 0.92;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .hero-title-jp {
+      font-family: var(--font-serif);
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      font-weight: 600; line-height: 1.6;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 2rem;
+    }
+    .hero-title-jp em {
+      font-style: normal; color: var(--red);
+    }
+
+    .hero-desc {
+      font-size: 0.9rem; color: rgba(255,255,255,0.55);
+      line-height: 2.1; letter-spacing: 0.07em;
+      max-width: 420px; margin-bottom: 3rem;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+
+    .btn-red {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--red); color: var(--white);
+      font-family: var(--font-jp); font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.12em; padding: 1rem 2.4rem;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(232,32,26,0.4);
+    }
+    .btn-red:hover {
+      background: #C01010; transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(232,32,26,0.5);
+    }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 2px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.8);
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.15em;
+      padding: 0.95rem 2rem; border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover {
+      border-color: var(--white); color: var(--white);
+    }
+    .btn-arrow::after { content: ' →'; }
+
+    /* ヒーロー右：商品ビジュアル */
+    .hero-visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* 実写写真フレーム */
+    .hero-photo-frame {
+      position: relative; width: 100%;
+      max-width: 480px;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+    .hero-craftsman-img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      filter: brightness(0.88);
+    }
+    .hero-photo-frame-border {
+      position: absolute; inset: 12px;
+      border: 1px solid rgba(232,32,26,0.5);
+      pointer-events: none;
+    }
+    .hero-photo-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.4rem 1.6rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
+      display: flex; flex-direction: column; gap: 0.2rem;
+    }
+    .hero-photo-label-en {
+      font-family: var(--font-en);
+      font-size: 0.65rem; letter-spacing: 0.22em;
+      color: var(--red);
+    }
+    .hero-photo-label-jp {
+      font-family: var(--font-serif);
+      font-size: 1.3rem; letter-spacing: 0.2em;
+      color: var(--white);
+    }
+    .hero-product-frame {
+      position: relative; width: 100%;
+      aspect-ratio: 1/1;
+      max-width: 520px;
+    }
+    .hero-product-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 40% 40%, rgba(184,115,51,0.18) 0%, transparent 65%),
+                  radial-gradient(circle at 70% 70%, rgba(232,32,26,0.1) 0%, transparent 50%);
+      border-radius: 50%;
+    }
+    .hero-product-svg {
+      position: relative; z-index: 1;
+      filter: drop-shadow(0 20px 60px rgba(0,0,0,0.8)) drop-shadow(0 0 40px rgba(184,115,51,0.3));
+    }
+    /* 数字装飾 */
+    .hero-number {
+      position: absolute; right: -1rem; top: 1rem;
+      font-family: var(--font-en); font-size: 10rem; font-weight: 700;
+      color: rgba(255,255,255,0.03); line-height: 1;
+      user-select: none; pointer-events: none;
+    }
+
+    /* ヒーロー下部：統計バー */
+    .hero-stats {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: var(--red);
+      display: flex; justify-content: center;
+    }
+    .hero-stat {
+      flex: 1; max-width: 220px;
+      padding: 1.1rem 2rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num {
+      font-family: var(--font-en); font-size: 1.8rem; font-weight: 700;
+      color: var(--white); letter-spacing: 0.05em; line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.65rem; letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.7); margin-top: 3px;
+    }
+
+    /* ===== SECTION 共通 ===== */
+    .section { padding: 6rem 0; }
+    .section-sm { padding: 4rem 0; }
+    .section-dark { background: var(--black); color: var(--white); }
+    .section-gray { background: var(--gray); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .container-wide { max-width: 1440px; margin: 0 auto; padding: 0 2rem; }
+
+    .sec-header { margin-bottom: 3.5rem; }
+    .sec-header.center { text-align: center; }
+    .sec-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-en); font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.32em; color: var(--red); margin-bottom: 0.8rem;
+    }
+    .sec-tag::before { content: ''; width: 20px; height: 2px; background: var(--red); }
+    .sec-header.center .sec-tag { justify-content: center; }
+    .sec-header.center .sec-tag::before { display: none; }
+    .sec-title {
+      font-family: var(--font-en);
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 700; letter-spacing: 0.02em; line-height: 1.1;
+    }
+    .sec-title-jp {
+      font-family: var(--font-serif);
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
+      font-weight: 600; letter-spacing: 0.14em;
+      color: var(--gray3); margin-top: 0.4rem;
+    }
+    .section-dark .sec-title-jp { color: rgba(255,255,255,0.45); }
+    .sec-desc {
+      font-size: 0.9rem; color: var(--gray3); line-height: 2.1;
+      letter-spacing: 0.06em; max-width: 560px; margin-top: 1rem;
+    }
+    .sec-header.center .sec-desc { margin: 1rem auto 0; }
+    .section-dark .sec-desc { color: rgba(255,255,255,0.45); }
+
+    /* ===== PRODUCTS / GALLERY ===== */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .product-card {
+      background: var(--white);
+      position: relative; overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .product-card:hover { transform: scale(1.02); z-index: 2; }
+    .product-card.featured {
+      grid-column: span 2; grid-row: span 2;
+    }
+
+    .product-thumb {
+      aspect-ratio: 1;
+      background: var(--gray);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .product-card.featured .product-thumb {
+      aspect-ratio: unset; height: 100%; min-height: 460px;
+    }
+    .product-thumb-inner {
+      width: 78%; padding: 1.5rem;
+      transition: transform 0.4s;
+    }
+    .product-card:hover .product-thumb-inner { transform: scale(1.06); }
+
+    .product-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--red); color: var(--white);
+      font-family: var(--font-en); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.12em; padding: 0.3rem 0.8rem;
+    }
+    .product-new { background: var(--black); }
+
+    .product-info {
+      padding: 1.2rem 1.4rem 1.4rem;
+      border-top: 2px solid var(--gray2);
+    }
+    .product-name {
+      font-family: var(--font-jp); font-size: 0.95rem; font-weight: 700;
+      letter-spacing: 0.06em; margin-bottom: 0.3rem;
+    }
+    .product-spec {
+      font-size: 0.72rem; color: var(--gray3); letter-spacing: 0.08em;
+    }
+    .product-price {
+      font-family: var(--font-en); font-size: 1.3rem; font-weight: 700;
+      color: var(--red); margin-top: 0.6rem; letter-spacing: 0.04em;
+    }
+    .product-price small {
+      font-size: 0.7rem; color: var(--gray3);
+      font-family: var(--font-jp); margin-left: 0.3rem;
+    }
+
+    /* ===== BRAND MESSAGE（魂ウェブ風ダーク） ===== */
+    .brand-msg {
+      background: var(--black);
+      padding: 7rem 0;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .brand-msg-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(232,32,26,0.12) 0%, transparent 60%);
+    }
+    .brand-msg-logo {
+      font-family: var(--font-en);
+      font-size: clamp(3rem, 7vw, 7rem);
+      font-weight: 700; letter-spacing: 0.05em;
+      color: var(--white); line-height: 1;
+      position: relative; z-index: 1;
+    }
+    .brand-msg-logo span { color: var(--red); }
+    .brand-msg-sub {
+      font-family: var(--font-serif);
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      color: rgba(255,255,255,0.5); letter-spacing: 0.2em;
+      margin-top: 1rem; margin-bottom: 2.5rem;
+      position: relative; z-index: 1;
+    }
+    .brand-msg-copy {
+      font-family: var(--font-serif);
+      font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+      color: var(--white); letter-spacing: 0.14em; line-height: 1.9;
+      position: relative; z-index: 1; max-width: 700px; margin: 0 auto;
+    }
+    /* 横線装飾 */
+    .brand-msg-line {
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+      margin-bottom: 2.5rem; position: relative; z-index: 1;
+    }
+    .brand-msg-line::before, .brand-msg-line::after {
+      content: ''; flex: 1; max-width: 120px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(232,32,26,0.5));
+    }
+    .brand-msg-line::after { transform: rotate(180deg); }
+    .brand-msg-diamond {
+      width: 8px; height: 8px; background: var(--red); transform: rotate(45deg);
+    }
+
+    /* ===== REAL CAR CARDS ===== */
+    .real-cars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .real-car-card {
+      background: var(--white);
+      border: 1px solid var(--gray2);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .real-car-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+    }
+    .real-car-photo {
+      position: relative;
+      padding: 1.8rem 1rem 2.2rem;
+      overflow: hidden;
+    }
+    .real-car-photo svg { display: block; width: 100%; height: auto; }
+    .real-car-material-badge {
+      position: absolute; bottom: 0.6rem; right: 0.6rem;
+      font-family: var(--font-jp); font-size: 0.68rem;
+      color: rgba(220,180,80,0.9);
+      padding: 0.28rem 0.7rem;
+      border: 1px solid;
+      letter-spacing: 0.08em;
+    }
+    .real-car-info { padding: 1.2rem 1.3rem 1.5rem; }
+    .real-car-make {
+      font-family: var(--font-en); font-size: 0.65rem;
+      letter-spacing: 0.25em; color: var(--red);
+      margin-bottom: 0.2rem;
+    }
+    .real-car-name {
+      font-family: var(--font-serif); font-size: 1.25rem;
+      font-weight: 700; letter-spacing: 0.1em;
+      color: var(--black); margin-bottom: 0.6rem;
+    }
+    .real-car-spec {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.72rem; color: var(--gray3);
+      letter-spacing: 0.06em; margin-bottom: 0.7rem;
+    }
+    .real-car-spec .sep { color: var(--red); }
+    .real-car-desc {
+      font-size: 0.78rem; color: #555;
+      line-height: 1.8; letter-spacing: 0.04em;
+      margin-bottom: 0.8rem;
+    }
+    .real-car-price {
+      font-family: var(--font-en); font-size: 1.1rem; font-weight: 600;
+      color: var(--black);
+    }
+    .real-car-price small { font-size: 0.72rem; color: var(--gray3); margin-left: 0.2rem; }
+    @media (max-width: 1024px) {
+      .real-cars-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .real-cars-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== VIDEO SECTION ===== */
+    .video-section {
+      background: var(--black);
+      padding: 6rem 0;
+    }
+    .video-section .sec-title,
+    .video-section .sec-title-jp { color: var(--white); }
+    .video-section .sec-tag { color: var(--red); }
+    .video-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 3rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+    .video-player {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #000;
+      border: 2px solid rgba(232,32,26,0.3);
+    }
+    .video-iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .video-side { color: var(--white); }
+    .video-chapter-list { display: flex; flex-direction: column; gap: 0; }
+    .video-chapter-heading {
+      font-family: var(--font-en); font-size: 0.65rem;
+      letter-spacing: 0.2em; color: var(--gray3);
+      margin-bottom: 1rem;
+    }
+    .video-chapter {
+      display: flex; gap: 1rem; align-items: baseline;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      cursor: pointer; transition: color 0.2s;
+    }
+    .video-chapter:hover, .video-chapter.active { color: var(--white); }
+    .video-chapter:not(.active) { color: rgba(255,255,255,0.45); }
+    .video-chapter.active .chap-time { color: var(--red); }
+    .chap-time {
+      font-family: var(--font-en); font-size: 0.72rem;
+      letter-spacing: 0.08em; min-width: 2.8rem;
+    }
+    .chap-title { font-size: 0.82rem; letter-spacing: 0.06em; }
+    @media (max-width: 900px) {
+      .video-wrapper { grid-template-columns: 1fr; }
+    }
+
+    /* ===== PHOTO GALLERY SECTION ===== */
+    .photo-gallery-section {
+      background: var(--black);
+      padding: 0;
+      overflow: hidden;
+    }
+    .photo-gallery-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+    }
+    .photo-gallery-left,
+    .photo-gallery-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-gallery-left img,
+    .photo-gallery-right img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.6s ease;
+      filter: brightness(0.82);
+    }
+    .photo-gallery-left:hover img,
+    .photo-gallery-right:hover img {
+      transform: scale(1.04);
+      filter: brightness(0.95);
+    }
+    .photo-gallery-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    }
+    .photo-tag {
+      font-family: var(--font-en);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--red);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .photo-gallery-caption p {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--white);
+      letter-spacing: 0.08em;
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+      .photo-gallery-inner { grid-template-columns: 1fr; min-height: auto; }
+      .photo-gallery-left, .photo-gallery-right { min-height: 300px; }
+    }
+
+    /* ===== PROCESS ===== */
+    .process-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; border: 2px solid var(--black);
+    }
+    .process-item {
+      padding: 2.5rem 2rem;
+      border-right: 2px solid var(--black);
+      position: relative;
+      transition: background 0.2s;
+    }
+    .process-item:last-child { border-right: none; }
+    .process-item:hover { background: var(--black); color: var(--white); }
+    .process-item:hover .process-num { color: rgba(255,255,255,0.08); }
+    .process-item:hover .process-title { color: var(--white); }
+    .process-item:hover .process-desc { color: rgba(255,255,255,0.55); }
+
+    .process-num {
+      font-family: var(--font-en); font-size: 4.5rem; font-weight: 700;
+      color: var(--gray2); line-height: 1; margin-bottom: 1rem;
+      transition: color 0.2s;
+    }
+    .process-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .process-title {
+      font-family: var(--font-jp); font-size: 1rem; font-weight: 700;
+      letter-spacing: 0.08em; margin-bottom: 0.7rem;
+      transition: color 0.2s;
+    }
+    .process-desc {
+      font-size: 0.8rem; color: var(--gray3); line-height: 2;
+      letter-spacing: 0.04em; transition: color 0.2s;
+    }
+    /* 赤いアクセントライン */
+    .process-item::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--red);
+      transform: scaleX(0); transition: transform 0.2s;
+    }
+    .process-item:hover::before { transform: scaleX(1); }
+
+    /* ===== CRAFTSMAN ===== */
+    .craftsman-grid {
+      display: grid; grid-template-columns: 5fr 7fr;
+      gap: 0; min-height: 620px;
+    }
+    .craftsman-photo {
+      position: relative; overflow: hidden; background: var(--black);
+    }
+    .craftsman-photo img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top;
+      opacity: 0.9;
+    }
+    .craftsman-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(232,32,26,0.15));
+    }
+    .craftsman-photo-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: var(--red); padding: 1rem 1.5rem;
+      display: flex; align-items: baseline; gap: 0.8rem;
+    }
+    .craftsman-photo-label strong {
+      font-family: var(--font-serif); font-size: 1.3rem;
+      font-weight: 700; color: var(--white); letter-spacing: 0.12em;
+    }
+    .craftsman-photo-label span {
+      font-size: 0.72rem; color: rgba(255,255,255,0.75); letter-spacing: 0.15em;
+    }
+    .craftsman-content {
+      background: var(--black); padding: 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .craftsman-quote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+      font-weight: 600; color: var(--white);
+      letter-spacing: 0.1em; line-height: 1.8;
+      margin: 2rem 0;
+      padding-left: 1.5rem;
+      border-left: 4px solid var(--red);
+    }
+    .craftsman-bio {
+      font-size: 0.88rem; color: rgba(255,255,255,0.55);
+      line-height: 2.2; letter-spacing: 0.07em;
+    }
+    .craftsman-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem;
+    }
+    .craftsman-tag {
+      font-size: 0.7rem; letter-spacing: 0.1em;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ===== MY CAR ===== */
+    .mycar-section { background: var(--black); padding: 6rem 0; }
+    .mycar-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .mycar-label {
+      display: inline-block;
+      background: var(--red); color: var(--white);
+      font-family: var(--font-en); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.2em; padding: 0.35rem 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .mycar-title {
+      font-family: var(--font-en); font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 700; color: var(--white); line-height: 1.1;
+      letter-spacing: 0.02em; margin-bottom: 0.6rem;
+    }
+    .mycar-title-jp {
+      font-family: var(--font-serif); font-size: 1.1rem;
+      color: rgba(255,255,255,0.45); letter-spacing: 0.15em;
+      margin-bottom: 2rem;
+    }
+    .mycar-desc {
+      font-size: 0.9rem; color: rgba(255,255,255,0.55);
+      line-height: 2.2; letter-spacing: 0.07em; margin-bottom: 2.5rem;
+    }
+    .mycar-steps {
+      display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem;
+    }
+    .mycar-step {
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .mycar-step-num {
+      width: 28px; height: 28px; flex-shrink: 0;
+      background: var(--red); color: var(--white);
+      font-family: var(--font-en); font-size: 0.75rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mycar-step-text {
+      font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.9;
+    }
+    .mycar-step-text strong { display: block; color: var(--white); font-weight: 700; }
+    .mycar-visual-wrap {
+      position: relative;
+    }
+    .mycar-transform-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .mycar-car-panel {
+      padding: 2rem; display: flex; flex-direction: column; align-items: center;
+    }
+    .mycar-panel-label {
+      font-family: var(--font-en); font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.25em; margin-bottom: 0.8rem;
+      opacity: 0.5;
+    }
+    .mycar-car-panel:first-child { background: rgba(255,255,255,0.03); }
+    .mycar-car-panel:last-child { background: rgba(184,115,51,0.08); }
+    .mycar-arrow-band {
+      background: var(--red); padding: 0.6rem;
+      display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+    }
+    .mycar-arrow-band span {
+      font-family: var(--font-en); font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.22em; color: var(--white);
+    }
+    .mycar-examples-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+      margin-top: 4rem;
+    }
+    .mycar-ex-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
+      transition: background 0.2s;
+    }
+    .mycar-ex-card:hover { background: rgba(255,255,255,0.08); }
+    .mycar-ex-thumb {
+      aspect-ratio: 4/3; padding: 1rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mycar-ex-info { padding: 0.8rem 1rem; border-top: 1px solid rgba(255,255,255,0.06); }
+    .mycar-ex-name {
+      font-size: 0.82rem; font-weight: 700; color: var(--white);
+      letter-spacing: 0.05em; margin-bottom: 0.2rem;
+    }
+    .mycar-ex-spec { font-size: 0.68rem; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; }
+
+    /* ===== MATERIALS ===== */
+    .materials-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+    }
+    .material-card {
+      background: var(--white);
+      padding: 2rem 1.5rem;
+      border: 2px solid var(--gray2);
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .material-card:hover {
+      border-color: var(--red); transform: translateY(-4px);
+    }
+    .material-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--red); transform: scaleX(0); transition: transform 0.2s;
+    }
+    .material-card:hover::before { transform: scaleX(1); }
+    .material-card.featured {
+      grid-column: span 2; background: var(--black); color: var(--white);
+      border-color: var(--black);
+    }
+    .material-card.featured:hover { border-color: var(--red); }
+    .material-icon {
+      font-size: 2rem; margin-bottom: 1rem;
+    }
+    .material-name {
+      font-family: var(--font-jp); font-size: 1rem; font-weight: 700;
+      letter-spacing: 0.08em; margin-bottom: 0.6rem;
+    }
+    .material-desc {
+      font-size: 0.78rem; color: var(--gray3); line-height: 2;
+      letter-spacing: 0.04em;
+    }
+    .material-card.featured .material-desc { color: rgba(255,255,255,0.5); }
+    .material-tag {
+      display: inline-block; margin-top: 0.8rem;
+      background: var(--red); color: var(--white);
+      font-family: var(--font-en); font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.15em; padding: 0.2rem 0.6rem;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    }
+    .testimonial {
+      background: var(--white); padding: 2.5rem;
+      border-left: 4px solid transparent;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .testimonial:hover {
+      border-color: var(--red);
+      box-shadow: 4px 0 0 0 var(--red);
+    }
+    .testimonial-stars {
+      color: var(--red); font-size: 0.8rem; letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .testimonial-text {
+      font-size: 0.86rem; color: #444; line-height: 2.1;
+      letter-spacing: 0.06em; margin-bottom: 1.5rem;
+    }
+    .testimonial-author {
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .testimonial-avatar {
+      width: 38px; height: 38px; background: var(--gray2);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .testimonial-name {
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em;
+    }
+    .testimonial-detail { font-size: 0.7rem; color: var(--gray3); letter-spacing: 0.08em; }
+
+    /* ===== ORDER ===== */
+    .order-section { background: var(--black); padding: 6rem 0; }
+    .order-row {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 0; position: relative; margin-top: 3.5rem;
+    }
+    .order-row::before {
+      content: ''; position: absolute;
+      top: 32px; left: 5%; right: 5%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red) 20%, var(--red) 80%, transparent);
+      opacity: 0.4;
+    }
+    .order-step {
+      text-align: center; padding: 0 1rem; position: relative;
+    }
+    .order-step-circle {
+      width: 64px; height: 64px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.15);
+      background: var(--black);
+      margin: 0 auto 1.5rem;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-en); font-size: 1.3rem; font-weight: 700;
+      color: var(--white); position: relative; z-index: 1;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .order-step:hover .order-step-circle {
+      background: var(--red); border-color: var(--red);
+    }
+    .order-step-title {
+      font-size: 0.9rem; font-weight: 700; color: var(--white);
+      letter-spacing: 0.08em; margin-bottom: 0.5rem;
+    }
+    .order-step-desc {
+      font-size: 0.75rem; color: rgba(255,255,255,0.4);
+      line-height: 1.9; letter-spacing: 0.04em;
+    }
+
+    /* 価格表 */
+    .price-table {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: 3.5rem;
+    }
+    .price-card {
+      background: rgba(255,255,255,0.04); padding: 2.5rem 2rem;
+      text-align: center; border: 1px solid rgba(255,255,255,0.06);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .price-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(232,32,26,0.3); }
+    .price-card.popular {
+      background: var(--red); border-color: var(--red);
+    }
+    .price-card.popular:hover { background: #C01010; }
+    .price-tier {
+      font-family: var(--font-en); font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.25em; color: rgba(255,255,255,0.5); margin-bottom: 0.8rem;
+    }
+    .price-card.popular .price-tier { color: rgba(255,255,255,0.8); }
+    .price-amount {
+      font-family: var(--font-en); font-size: 2.5rem; font-weight: 700;
+      color: var(--white); line-height: 1;
+    }
+    .price-unit {
+      font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 0.3rem;
+      letter-spacing: 0.1em;
+    }
+    .price-features {
+      margin-top: 1.5rem; text-align: left;
+    }
+    .price-feature {
+      font-size: 0.78rem; color: rgba(255,255,255,0.55); line-height: 1;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      letter-spacing: 0.06em;
+    }
+    .price-feature::before { content: '— '; }
+    .price-card.popular .price-feature { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.15); }
+
+    /* ===== CTA BANNER ===== */
+    .cta-banner {
+      background: var(--red);
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: 'ORDER';
+      position: absolute; right: -2rem; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-en); font-size: 18rem; font-weight: 700;
+      color: rgba(0,0,0,0.08); line-height: 1;
+      pointer-events: none;
+    }
+    .cta-banner-title {
+      font-family: var(--font-en);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-weight: 700; color: var(--white); line-height: 1.1;
+      letter-spacing: 0.02em; margin-bottom: 0.5rem;
+    }
+    .cta-banner-jp {
+      font-family: var(--font-serif);
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
+      color: rgba(255,255,255,0.7); letter-spacing: 0.2em;
+      margin-bottom: 2.5rem;
+    }
+    .cta-banner-actions {
+      display: flex; gap: 1rem; justify-content: center; align-items: center;
+      flex-wrap: wrap; position: relative; z-index: 1;
+    }
+    .btn-white {
+      background: var(--white); color: var(--red);
+      font-weight: 700; font-size: 0.88rem; letter-spacing: 0.12em;
+      padding: 1.1rem 3rem; border-radius: 2px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+    .btn-outline-white {
+      border: 2px solid rgba(255,255,255,0.5); color: var(--white);
+      font-size: 0.85rem; letter-spacing: 0.15em;
+      padding: 1.05rem 2.5rem; border-radius: 2px;
+      transition: border-color 0.2s;
+    }
+    .btn-outline-white:hover { border-color: var(--white); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #080808; color: rgba(255,255,255,0.45);
+      padding: 4rem 0 2rem;
+    }
+    .footer-inner {
+      display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-logo-mark {
+      width: 48px; height: 48px; background: var(--red);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 1px; margin-bottom: 1rem;
+    }
+    .footer-logo-mark span {
+      font-family: var(--font-en); font-size: 0.6rem; font-weight: 700;
+      color: var(--white); letter-spacing: 0.05em; line-height: 1;
+    }
+    .footer-brand-name {
+      font-family: var(--font-en); font-size: 1.1rem; font-weight: 700;
+      color: var(--white); letter-spacing: 0.1em; margin-bottom: 0.8rem;
+    }
+    .footer-tagline {
+      font-size: 0.78rem; line-height: 2; letter-spacing: 0.06em; max-width: 240px;
+    }
+    .footer-col h4 {
+      font-family: var(--font-en); font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.28em; color: rgba(255,255,255,0.7);
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 0.7rem; }
+    .footer-col a {
+      font-size: 0.78rem; letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.7rem; letter-spacing: 0.1em;
+    }
+
+    /* ===== SCROLL ANIMATION ===== */
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up-d1 { transition-delay: 0.1s; }
+    .fade-up-d2 { transition-delay: 0.2s; }
+    .fade-up-d3 { transition-delay: 0.3s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .craftsman-grid { grid-template-columns: 1fr; }
+      .materials-grid { grid-template-columns: repeat(3, 1fr); }
+      .material-card.featured { grid-column: span 3; }
+      .mycar-inner { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .mycar-examples-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      #header { padding: 0 1rem; }
+      .header-nav { display: none; }
+      .hero-inner { padding: 3rem 1.5rem; }
+      .container { padding: 0 1rem; }
+      .products-grid { grid-template-columns: 1fr; }
+      .product-card.featured { grid-column: span 1; }
+      .process-row { grid-template-columns: repeat(2, 1fr); }
+      .process-item { border-bottom: 2px solid var(--black); }
+      .order-row { grid-template-columns: repeat(2, 2fr) 1fr; flex-wrap: wrap; }
+      .price-table { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header id="header">
+    <a href="#top" class="header-logo">
+      <div class="header-logo-mark">
+        <span>KI</span>
+        <span>BO</span>
+        <span>RI</span>
+      </div>
+      <div class="header-logo-text">
+        <strong>KIBORI</strong>
+        <small>MINI 4WD STUDIO</small>
+      </div>
+    </a>
+    <nav class="header-nav">
+      <a href="#gallery">WORKS</a>
+      <a href="#mycar">MY CAR</a>
+      <a href="#process">PROCESS</a>
+      <a href="#craftsman">CRAFTSMAN</a>
+      <a href="#materials">MATERIALS</a>
+      <a href="#order" class="header-cta">ORDER →</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="top">
+    <div class="hero-bg"></div>
+    <div class="hero-wood-texture"></div>
+    <div class="hero-noise"></div>
+    <div class="hero-redline"></div>
+    <div class="hero-redline2"></div>
+
+    <div class="hero-inner">
+      <div class="hero-content">
+        <p class="hero-tag">HANDCRAFTED WOOD ART</p>
+        <h1 class="hero-title">KIBORI<br>MINI 4WD</h1>
+        <p class="hero-title-jp">木を削り、<em>魂を刻む。</em><br>唯一無二のボディ。</p>
+        <p class="hero-desc">
+          一本の木から職人の手仕事で生まれる、あなただけのミニ四駆ボディ。
+          47年の木工技術と、レーサーへの情熱が交わる工房。
+        </p>
+        <div class="hero-actions">
+          <a href="#gallery" class="btn-red btn-arrow">作品を見る</a>
+          <a href="#order" class="btn-outline">オーダーする →</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-photo-frame">
+          <img src="craftsman.png" alt="木彫師 大岡恵吾" class="hero-craftsman-img">
+          <div class="hero-photo-frame-border"></div>
+          <div class="hero-photo-label">
+            <span class="hero-photo-label-en">WOOD CARVING MASTER</span>
+            <span class="hero-photo-label-jp">大岡 恵吾</span>
+          </div>
+        </div>
+        <!-- 非表示SVG（fallback用） -->
+        <div style="display:none">
+        <svg class="hero-product-svg" viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#D4A060"/>
+                <stop offset="50%" style="stop-color:#A87030"/>
+                <stop offset="100%" style="stop-color:#6A3A10"/>
+              </linearGradient>
+              <linearGradient id="hg2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#E8C080;stop-opacity:0.5"/>
+                <stop offset="100%" style="stop-color:#3A1800;stop-opacity:0.3"/>
+              </linearGradient>
+              <filter id="hs1">
+                <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#1A0800" flood-opacity="0.7"/>
+              </filter>
+            </defs>
+            <g filter="url(#hs1)">
+              <path d="M48 210 L65 130 Q95 68 165 52 L220 48 Q298 46 342 52 L390 72 Q432 96 448 140 L458 195 L458 212 Z" fill="url(#hg1)"/>
+              <path d="M58 170 Q165 130 322 124 Q392 120 450 148" stroke="#E8C080" stroke-width="2" fill="none" opacity="0.45"/>
+              <path d="M52 190 Q165 150 325 145 Q394 141 453 166" stroke="#C89040" stroke-width="1.2" fill="none" opacity="0.35"/>
+              <path d="M55 202 Q168 165 328 160 Q396 156 455 178" stroke="#B07830" stroke-width="1" fill="none" opacity="0.28"/>
+              <path d="M165 135 L185 68 Q218 45 265 43 L295 43 Q330 46 348 66 L362 108 L362 135 Z" fill="#7A4A1E" opacity="0.75"/>
+              <path d="M172 128 L190 72 Q220 50 262 47 L262 128 Z" fill="#1C3A5A" opacity="0.55"/>
+              <path d="M265 47 L295 47 Q326 50 344 68 L357 108 L357 128 L265 128 Z" fill="#1A3858" opacity="0.5"/>
+              <path d="M48 210 L40 228 L84 235 L90 210 Z" fill="#5A2808"/>
+              <path d="M440 165 L475 150 L480 162 L445 178 Z" fill="#5A2808"/>
+              <rect x="40" y="207" width="420" height="20" rx="5" fill="#3A1808"/>
+              <ellipse cx="125" cy="226" rx="48" ry="24" fill="#1A0C04"/>
+              <ellipse cx="125" cy="226" rx="36" ry="18" fill="#0D0604"/>
+              <ellipse cx="125" cy="226" rx="20" ry="10" fill="#2A1A0A"/>
+              <ellipse cx="382" cy="226" rx="48" ry="24" fill="#1A0C04"/>
+              <ellipse cx="382" cy="226" rx="36" ry="18" fill="#0D0604"/>
+              <ellipse cx="382" cy="226" rx="20" ry="10" fill="#2A1A0A"/>
+              <path d="M72 196 L428 196" stroke="#C9A84C" stroke-width="3" opacity="0.9"/>
+              <path d="M72 192 L428 192" stroke="#C9A84C" stroke-width="1" opacity="0.4"/>
+              <text x="253" y="182" text-anchor="middle" font-family="Oswald,sans-serif" font-size="12" fill="#C9A84C" letter-spacing="5" opacity="0.95">KIBORI</text>
+              <!-- 赤いストライプ（バンダイ風アクセント） -->
+              <path d="M48 210 L65 130" stroke="#E8201A" stroke-width="4" opacity="0.7" stroke-linecap="round"/>
+              <path d="M458 210 L445 150" stroke="#E8201A" stroke-width="4" opacity="0.7" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">47<span style="font-size:1.1rem">年</span></div>
+        <div class="hero-stat-label">YEARS OF EXPERIENCE</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">500<span style="font-size:1.1rem">+</span></div>
+        <div class="hero-stat-label">BODIES CRAFTED</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">15<span style="font-size:1.1rem">+</span></div>
+        <div class="hero-stat-label">WOOD MATERIALS</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">4.9</div>
+        <div class="hero-stat-label">CUSTOMER RATING</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BRAND MESSAGE ===== -->
+  <div class="brand-msg">
+    <div class="brand-msg-bg"></div>
+    <div class="brand-msg-logo">KIBORI <span>×</span> MINI 4WD</div>
+    <p class="brand-msg-sub">木彫ミニ四駆工房 — Handcrafted in Japan</p>
+    <div class="brand-msg-line"><div class="brand-msg-diamond"></div></div>
+    <p class="brand-msg-copy">
+      「木は正直やな。誤魔化しが利かん。だから面白い。」<br>
+      <span style="font-size:0.85em; opacity:0.5; letter-spacing:0.2em;">— 木彫師 大岡恵吾</span>
+    </p>
+  </div>
+
+  <!-- ===== WORKS / GALLERY ===== -->
+  <section class="section section-gray" id="gallery">
+    <div class="container">
+      <div class="sec-header fade-up">
+        <p class="sec-tag">WORKS</p>
+        <h2 class="sec-title">HANDCRAFTED<br>BODIES</h2>
+        <p class="sec-title-jp">手仕事が生む、一点物の世界</p>
+        <p class="sec-desc">すべて一から手削りで仕上げる、量産品では表現できない木の温もりと質感。</p>
+      </div>
+      <div class="products-grid fade-up">
+
+        <div class="product-card featured">
+          <div class="product-thumb" style="background: linear-gradient(135deg, #DDD0BE, #C4AA88);">
+            <div class="product-thumb-inner">
+              <svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="pg1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#D4A060"/><stop offset="100%" style="stop-color:#7A4A1E"/>
+                  </linearGradient>
+                  <filter id="ps1"><feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#3D1C08" flood-opacity="0.5"/></filter>
+                </defs>
+                <g filter="url(#ps1)">
+                  <path d="M35 175 L52 108 Q82 54 148 40 L222 38 Q298 40 338 66 L370 106 L376 172 Z" fill="url(#pg1)"/>
+                  <path d="M48 140 Q148 108 288 102 Q340 100 370 120" stroke="#E8C080" stroke-width="1.8" fill="none" opacity="0.5"/>
+                  <path d="M42 158 Q150 128 292 122 Q344 120 372 138" stroke="#D4A060" stroke-width="1.2" fill="none" opacity="0.38"/>
+                  <path d="M148 120 L165 58 Q192 38 228 36 L252 36 Q282 38 296 56 L308 92 L308 120 Z" fill="#7A4A1E" opacity="0.72"/>
+                  <path d="M154 116 L168 62 Q192 42 226 40 L226 116 Z" fill="#1C3A5A" opacity="0.52"/>
+                  <path d="M232 40 L256 40 Q280 42 294 58 L305 90 L305 116 L232 116 Z" fill="#1A3858" opacity="0.48"/>
+                  <path d="M35 175 L28 194 L68 200 L74 175 Z" fill="#5A2808"/>
+                  <path d="M356 112 L392 98 L396 108 L362 124 Z" fill="#5A2808"/>
+                  <rect x="30" y="172" width="348" height="18" rx="4" fill="#3A1808"/>
+                  <ellipse cx="102" cy="188" rx="40" ry="20" fill="#1A0C04"/>
+                  <ellipse cx="102" cy="188" rx="30" ry="15" fill="#0D0604"/>
+                  <ellipse cx="320" cy="188" rx="40" ry="20" fill="#1A0C04"/>
+                  <ellipse cx="320" cy="188" rx="30" ry="15" fill="#0D0604"/>
+                  <path d="M62 165 L355 165" stroke="#C9A84C" stroke-width="2.5" opacity="0.88"/>
+                  <text x="210" y="154" text-anchor="middle" font-family="Oswald,sans-serif" font-size="10" fill="#C9A84C" letter-spacing="4" opacity="0.9">KIBORI × MACH</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="product-badge">人気 No.1</div>
+          <div class="product-info">
+            <div class="product-name">マッハ系 — 樟（クスノキ）削り出し</div>
+            <div class="product-spec">使用木材：クスノキ ／ 仕上げ：蜜蝋ワックス ／ 製作期間：約3週間</div>
+            <div class="product-price">¥48,000<small>〜（税込）</small></div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-thumb" style="background: linear-gradient(135deg, #E8DDD0, #D0C0A0);">
+            <div class="product-thumb-inner">
+              <svg viewBox="0 0 300 190" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="pg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#D4A96A"/><stop offset="100%" style="stop-color:#8B5E2A"/></linearGradient></defs>
+                <path d="M22 130 L38 78 Q65 38 122 30 L188 29 Q240 32 262 60 L278 92 L280 130 Z" fill="url(#pg2)"/>
+                <path d="M34 100 Q110 76 200 70 Q244 68 276 86" stroke="#E8C880" stroke-width="1.2" fill="none" opacity="0.5"/>
+                <path d="M112 88 L126 48 Q148 32 182 30 L196 30 L198 48 L208 88 Z" fill="#7A4A1E" opacity="0.68"/>
+                <rect x="20" y="128" width="262" height="14" rx="3" fill="#4A2A0E"/>
+                <ellipse cx="75" cy="142" rx="30" ry="15" fill="#1A0C04"/>
+                <ellipse cx="238" cy="142" rx="30" ry="15" fill="#1A0C04"/>
+                <path d="M52 120 L250 120" stroke="#C9A84C" stroke-width="2" opacity="0.8"/>
+              </svg>
+            </div>
+          </div>
+          <div class="product-badge product-new">NEW</div>
+          <div class="product-info">
+            <div class="product-name">グレートエンペラー — 欅</div>
+            <div class="product-spec">使用木材：ケヤキ ／ 漆仕上げ</div>
+            <div class="product-price">¥62,000<small>〜</small></div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-thumb" style="background: linear-gradient(135deg, #E0D8CC, #C8B89A);">
+            <div class="product-thumb-inner">
+              <svg viewBox="0 0 300 190" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="pg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#B87333"/><stop offset="100%" style="stop-color:#5C3010"/></linearGradient></defs>
+                <path d="M18 128 L32 90 Q58 52 112 44 L188 42 Q240 46 262 76 L278 106 L280 128 Z" fill="url(#pg3)"/>
+                <path d="M28 108 Q105 80 196 74 Q242 72 276 90" stroke="#D4A96A" stroke-width="1.2" fill="none" opacity="0.5"/>
+                <path d="M128 96 L140 56 Q160 40 192 38 L206 38 L208 56 L218 96 Z" fill="#7A4A1E" opacity="0.7"/>
+                <rect x="16" y="126" width="266" height="13" rx="3" fill="#4A2A0E"/>
+                <ellipse cx="72" cy="140" rx="30" ry="15" fill="#1A0C04"/>
+                <ellipse cx="240" cy="140" rx="30" ry="15" fill="#1A0C04"/>
+                <rect x="188" y="44" width="4" height="28" fill="#8B5E2A" rx="1"/>
+                <path d="M52 118 L258 118" stroke="#C9A84C" stroke-width="2" opacity="0.8"/>
+              </svg>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-name">バンキッシュ系 — 黒檀</div>
+            <div class="product-spec">使用木材：黒檀 ／ オイル仕上げ</div>
+            <div class="product-price">¥55,000<small>〜</small></div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-thumb" style="background: linear-gradient(135deg, #F0E8DC, #D8C8A8);">
+            <div class="product-thumb-inner">
+              <svg viewBox="0 0 300 190" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="pg4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#E8B870"/><stop offset="100%" style="stop-color:#9A6830"/></linearGradient></defs>
+                <path d="M25 132 L40 86 Q68 44 128 36 L178 34 Q230 38 254 68 L272 102 L274 132 Z" fill="url(#pg4)"/>
+                <path d="M36 110 Q112 82 196 76 Q238 74 270 92" stroke="#F0D4A0" stroke-width="1.3" fill="none" opacity="0.5"/>
+                <path d="M120 98 L134 56 Q155 38 184 36 L198 36 L200 56 L210 98 Z" fill="#8B6030" opacity="0.65"/>
+                <rect x="23" y="130" width="253" height="14" rx="3" fill="#5A3A10"/>
+                <ellipse cx="78" cy="144" rx="30" ry="15" fill="#1A0C04"/>
+                <ellipse cx="234" cy="144" rx="30" ry="15" fill="#1A0C04"/>
+                <path d="M55 122 L248 122" stroke="#C9A84C" stroke-width="2" opacity="0.78"/>
+              </svg>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-name">サンダーショット — 栃瘤材</div>
+            <div class="product-spec">使用木材：栃 ／ 柿渋塗装</div>
+            <div class="product-price">¥38,000<small>〜</small></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 実車ベースモデル 4台 -->
+      <div class="sec-header fade-up" style="margin-top:5rem;">
+        <p class="sec-tag">REAL CAR MODELS</p>
+        <h2 class="sec-title">YOUR FAVORITE<br>CAR IN WOOD</h2>
+        <p class="sec-title-jp">実際の車をモデルに — 4台の実績作品</p>
+      </div>
+      <div class="real-cars-grid fade-up">
+
+        <!-- クラウン -->
+        <div class="real-car-card">
+          <div class="real-car-photo" style="background:#0A0A0A;">
+            <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="crown1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#2A1A08"/><stop offset="40%" style="stop-color:#1A0E04"/><stop offset="100%" style="stop-color:#080402"/>
+                </linearGradient>
+                <linearGradient id="crownSheen" x1="0%" y1="0%" x2="50%" y2="100%">
+                  <stop offset="0%" style="stop-color:#6A4020;stop-opacity:0.8"/><stop offset="50%" style="stop-color:#2A1808;stop-opacity:0.2"/><stop offset="100%" style="stop-color:#0A0604;stop-opacity:0"/>
+                </linearGradient>
+                <radialGradient id="crownLight" cx="40%" cy="30%" r="60%">
+                  <stop offset="0%" style="stop-color:#8B5E2A;stop-opacity:0.6"/><stop offset="100%" style="stop-color:#1A0A04;stop-opacity:0"/>
+                </radialGradient>
+                <filter id="crownShadow"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.9"/></filter>
+              </defs>
+              <rect width="360" height="200" fill="#050303"/>
+              <ellipse cx="180" cy="170" rx="160" ry="18" fill="rgba(0,0,0,0.7)"/>
+              <g filter="url(#crownShadow)">
+                <path d="M30 148 L45 95 Q70 55 120 46 L188 44 Q256 44 290 62 L318 92 L325 145 Z" fill="url(#crown1)"/>
+                <path d="M30 148 L45 95 Q70 55 120 46 L188 44 Q256 44 290 62 L318 92 L325 145 Z" fill="url(#crownLight)"/>
+                <path d="M30 148 L45 95 Q70 55 120 46 L188 44 Q256 44 290 62 L318 92 L325 145 Z" fill="url(#crownSheen)" opacity="0.6"/>
+                <!-- 木目ライン -->
+                <path d="M42 128 Q145 96 278 90 Q312 88 322 108" stroke="#3A2010" stroke-width="1.5" fill="none" opacity="0.6"/>
+                <path d="M36 138 Q142 108 282 102 Q318 100 324 118" stroke="#2A1808" stroke-width="1" fill="none" opacity="0.4"/>
+                <path d="M34 145 Q140 116 282 110 Q320 108 325 126" stroke="#200E04" stroke-width="0.8" fill="none" opacity="0.3"/>
+                <!-- ウインドウ -->
+                <path d="M120 94 L136 56 Q158 42 192 40 L220 40 Q246 42 258 56 L268 88 L268 94 Z" fill="#0A0604" opacity="0.9"/>
+                <path d="M126 90 L140 58 Q160 44 190 42 L190 90 Z" fill="#0D0A14" opacity="0.8"/>
+                <path d="M194 42 L218 42 Q242 44 256 58 L266 88 L194 90 Z" fill="#0A0814" opacity="0.75"/>
+                <!-- 漆光沢ハイライト -->
+                <path d="M60 80 Q150 58 260 70" stroke="rgba(200,150,80,0.25)" stroke-width="2" fill="none"/>
+                <path d="M58 85 Q148 64 258 76" stroke="rgba(160,110,50,0.15)" stroke-width="1" fill="none"/>
+                <!-- タイヤ -->
+                <ellipse cx="98" cy="158" rx="36" ry="18" fill="#080402"/>
+                <ellipse cx="98" cy="158" rx="26" ry="13" fill="#0D0604"/>
+                <ellipse cx="98" cy="158" rx="14" ry="7" fill="#1A0C04"/>
+                <ellipse cx="286" cy="158" rx="36" ry="18" fill="#080402"/>
+                <ellipse cx="286" cy="158" rx="26" ry="13" fill="#0D0604"/>
+                <ellipse cx="286" cy="158" rx="14" ry="7" fill="#1A0C04"/>
+                <rect x="28" y="144" width="300" height="16" rx="4" fill="#1A0A04"/>
+                <path d="M56 138 L308 138" stroke="rgba(200,150,60,0.7)" stroke-width="1.5"/>
+              </g>
+            </svg>
+            <div class="real-car-material-badge" style="background:rgba(20,10,4,0.95); border-color:rgba(200,150,60,0.4);">欅 / 漆仕上げ</div>
+          </div>
+          <div class="real-car-info">
+            <div class="real-car-make">TOYOTA</div>
+            <div class="real-car-name">クラウン</div>
+            <div class="real-car-spec">
+              <span>欅（ケヤキ）</span><span class="sep">×</span><span>漆仕上げ</span>
+            </div>
+            <div class="real-car-desc">深みのある漆黒と欅の繊維感。和の美意識を凝縮した一台。</div>
+            <div class="real-car-price">¥68,000<small>〜</small></div>
+          </div>
+        </div>
+
+        <!-- ジムニー -->
+        <div class="real-car-card">
+          <div class="real-car-photo" style="background:#1A1008;">
+            <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="jimny1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#C8942A"/><stop offset="50%" style="stop-color:#A07020"/><stop offset="100%" style="stop-color:#6A4812"/>
+                </linearGradient>
+                <radialGradient id="jimnyLight" cx="35%" cy="25%" r="55%">
+                  <stop offset="0%" style="stop-color:#E8B84A;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#3A2008;stop-opacity:0"/>
+                </radialGradient>
+                <filter id="jimnyShadow"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#1A0800" flood-opacity="0.8"/></filter>
+              </defs>
+              <rect width="360" height="200" fill="#0D0804"/>
+              <ellipse cx="180" cy="170" rx="155" ry="16" fill="rgba(0,0,0,0.6)"/>
+              <g filter="url(#jimnyShadow)">
+                <!-- ジムニーのボクシーなボディ -->
+                <path d="M38 148 L38 68 Q40 52 56 48 L104 46 L130 46 L140 36 L220 36 L230 46 L305 46 Q320 48 322 64 L322 148 Z" fill="url(#jimny1)"/>
+                <path d="M38 148 L38 68 Q40 52 56 48 L104 46 L130 46 L140 36 L220 36 L230 46 L305 46 Q320 48 322 64 L322 148 Z" fill="url(#jimnyLight)"/>
+                <!-- 柿渋の木目テクスチャ -->
+                <path d="M45 90 Q180 84 318 88" stroke="#B88020" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <path d="M44 104 Q180 98 318 102" stroke="#9A6A18" stroke-width="1" fill="none" opacity="0.4"/>
+                <path d="M44 118 Q180 112 318 116" stroke="#885818" stroke-width="0.8" fill="none" opacity="0.35"/>
+                <path d="M44 132 Q180 126 318 130" stroke="#7A5014" stroke-width="0.8" fill="none" opacity="0.3"/>
+                <!-- ウインドウ（四角型） -->
+                <rect x="142" y="38" width="76" height="46" rx="2" fill="#0A0C14" opacity="0.85"/>
+                <rect x="148" y="42" width="32" height="40" rx="1" fill="#0D0E18" opacity="0.8"/>
+                <rect x="184" y="42" width="30" height="40" rx="1" fill="#0C0D16" opacity="0.75"/>
+                <!-- スペアタイヤ（ジムニー特徴） -->
+                <circle cx="315" cy="90" r="20" fill="#6A4812" stroke="#8A6020" stroke-width="1.5"/>
+                <circle cx="315" cy="90" r="12" fill="#4A3010"/>
+                <!-- ハイライト -->
+                <path d="M50 58 Q185 48 308 56" stroke="rgba(220,180,80,0.3)" stroke-width="2" fill="none"/>
+                <!-- タイヤ（大きめ） -->
+                <ellipse cx="100" cy="158" rx="38" ry="20" fill="#0A0600"/>
+                <ellipse cx="100" cy="158" rx="28" ry="15" fill="#100A02"/>
+                <ellipse cx="100" cy="158" rx="14" ry="8" fill="#1A1006"/>
+                <ellipse cx="264" cy="158" rx="38" ry="20" fill="#0A0600"/>
+                <ellipse cx="264" cy="158" rx="28" ry="15" fill="#100A02"/>
+                <ellipse cx="264" cy="158" rx="14" ry="8" fill="#1A1006"/>
+                <rect x="36" y="144" width="288" height="16" rx="3" fill="#5A3A10"/>
+              </g>
+            </svg>
+            <div class="real-car-material-badge" style="background:rgba(30,20,8,0.95); border-color:rgba(180,130,40,0.4);">栃 / 柿渋塗装</div>
+          </div>
+          <div class="real-car-info">
+            <div class="real-car-make">SUZUKI</div>
+            <div class="real-car-name">ジムニー</div>
+            <div class="real-car-spec">
+              <span>栃（トチ）</span><span class="sep">×</span><span>柿渋塗装</span>
+            </div>
+            <div class="real-car-desc">アンバーの木肌に自然の渋みが重なる。冒険心をそそる一台。</div>
+            <div class="real-car-price">¥52,000<small>〜</small></div>
+          </div>
+        </div>
+
+        <!-- フェアレディZ -->
+        <div class="real-car-card">
+          <div class="real-car-photo" style="background:#060404;">
+            <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="fairz1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#1C1208"/><stop offset="40%" style="stop-color:#100C06"/><stop offset="100%" style="stop-color:#060402"/>
+                </linearGradient>
+                <radialGradient id="fairzLight" cx="30%" cy="20%" r="50%">
+                  <stop offset="0%" style="stop-color:#4A3A28;stop-opacity:0.7"/><stop offset="100%" style="stop-color:#060402;stop-opacity:0"/>
+                </radialGradient>
+                <filter id="fairzShadow"><feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#000" flood-opacity="0.95"/></filter>
+              </defs>
+              <rect width="360" height="200" fill="#040202"/>
+              <ellipse cx="180" cy="168" rx="155" ry="14" fill="rgba(0,0,0,0.8)"/>
+              <g filter="url(#fairzShadow)">
+                <!-- フェアレディZのスポーティなロングノーズ -->
+                <path d="M22 148 L28 105 Q36 78 72 60 L148 48 Q180 44 210 46 Q252 46 288 55 Q320 65 334 90 L338 128 L338 148 Z" fill="url(#fairz1)"/>
+                <path d="M22 148 L28 105 Q36 78 72 60 L148 48 Q180 44 210 46 Q252 46 288 55 Q320 65 334 90 L338 128 L338 148 Z" fill="url(#fairzLight)"/>
+                <!-- 黒檀の細かい木目 -->
+                <path d="M30 120 Q185 98 330 108" stroke="#2A1E10" stroke-width="0.8" fill="none" opacity="0.5"/>
+                <path d="M28 130 Q185 108 332 118" stroke="#221808" stroke-width="0.6" fill="none" opacity="0.4"/>
+                <path d="M26 138 Q185 118 334 128" stroke="#1A1406" stroke-width="0.5" fill="none" opacity="0.35"/>
+                <path d="M26 143 Q185 124 335 132" stroke="#180E04" stroke-width="0.5" fill="none" opacity="0.3"/>
+                <path d="M26 146 Q185 128 336 136" stroke="#140C04" stroke-width="0.4" fill="none" opacity="0.25"/>
+                <!-- ファストバックウインドウ -->
+                <path d="M148 86 L162 52 Q178 42 208 42 L230 42 Q262 44 278 58 L294 86 Z" fill="#080608" opacity="0.9"/>
+                <path d="M152 82 L164 54 Q178 44 206 44 L206 82 Z" fill="#0A0810" opacity="0.85"/>
+                <path d="M208 44 L228 44 Q258 46 274 60 L290 82 L208 82 Z" fill="#090710" opacity="0.8"/>
+                <!-- 黒檀の光沢ライン -->
+                <path d="M36 76 Q185 56 320 72" stroke="rgba(80,60,30,0.4)" stroke-width="1.5" fill="none"/>
+                <path d="M35 81 Q184 62 318 78" stroke="rgba(60,45,20,0.25)" stroke-width="1" fill="none"/>
+                <!-- スポーツカーの低いタイヤ -->
+                <ellipse cx="94" cy="155" rx="40" ry="19" fill="#060402"/>
+                <ellipse cx="94" cy="155" rx="30" ry="14" fill="#0A0604"/>
+                <ellipse cx="94" cy="155" rx="16" ry="8" fill="#140C06"/>
+                <ellipse cx="282" cy="155" rx="40" ry="19" fill="#060402"/>
+                <ellipse cx="282" cy="155" rx="30" ry="14" fill="#0A0604"/>
+                <ellipse cx="282" cy="155" rx="16" ry="8" fill="#140C06"/>
+                <rect x="20" y="142" width="320" height="14" rx="3" fill="#100806"/>
+                <path d="M50 135 L312 135" stroke="rgba(80,60,30,0.5)" stroke-width="1"/>
+              </g>
+            </svg>
+            <div class="real-car-material-badge" style="background:rgba(10,6,4,0.95); border-color:rgba(80,60,30,0.5);">黒檀 / オイル仕上げ</div>
+          </div>
+          <div class="real-car-info">
+            <div class="real-car-make">NISSAN</div>
+            <div class="real-car-name">フェアレディZ</div>
+            <div class="real-car-spec">
+              <span>黒檀（コクタン）</span><span class="sep">×</span><span>オイル仕上げ</span>
+            </div>
+            <div class="real-car-desc">最高密度の黒檀が生む、鋭く研ぎ澄まされた漆黒の美。</div>
+            <div class="real-car-price">¥75,000<small>〜</small></div>
+          </div>
+        </div>
+
+        <!-- ステップワゴン -->
+        <div class="real-car-card">
+          <div class="real-car-photo" style="background:#100C04;">
+            <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="step1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#D4A060"/><stop offset="50%" style="stop-color:#B88040"/><stop offset="100%" style="stop-color:#8A5C20"/>
+                </linearGradient>
+                <radialGradient id="stepLight" cx="40%" cy="25%" r="55%">
+                  <stop offset="0%" style="stop-color:#F0C878;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#3A2008;stop-opacity:0"/>
+                </radialGradient>
+                <filter id="stepShadow"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#1A0A00" flood-opacity="0.8"/></filter>
+              </defs>
+              <rect width="360" height="200" fill="#0A0602"/>
+              <ellipse cx="180" cy="170" rx="155" ry="16" fill="rgba(0,0,0,0.6)"/>
+              <g filter="url(#stepShadow)">
+                <!-- ステップワゴンの背の高いボディ -->
+                <path d="M35 148 L35 52 Q36 40 50 38 L308 38 Q324 40 325 52 L325 148 Z" fill="url(#step1)"/>
+                <path d="M35 148 L35 52 Q36 40 50 38 L308 38 Q324 40 325 52 L325 148 Z" fill="url(#stepLight)"/>
+                <!-- 樟の波状木目 -->
+                <path d="M42 72 Q180 66 318 70" stroke="#C89040" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <path d="M40 86 Q180 80 320 84" stroke="#B87830" stroke-width="1.2" fill="none" opacity="0.45"/>
+                <path d="M40 100 Q180 94 320 98" stroke="#A86C28" stroke-width="1" fill="none" opacity="0.4"/>
+                <path d="M40 114 Q180 108 320 112" stroke="#9A6020" stroke-width="0.8" fill="none" opacity="0.35"/>
+                <path d="M40 128 Q180 122 320 126" stroke="#8A5418" stroke-width="0.7" fill="none" opacity="0.3"/>
+                <!-- ミニバンの大きなウインドウ群 -->
+                <rect x="50" y="42" width="80" height="55" rx="2" fill="#0C0E16" opacity="0.85"/>
+                <rect x="140" y="42" width="72" height="55" rx="2" fill="#0A0C14" opacity="0.8"/>
+                <rect x="222" y="42" width="72" height="55" rx="2" fill="#0A0C14" opacity="0.78"/>
+                <!-- 樟の蜜蝋光沢 -->
+                <path d="M44 46 Q182 38 316 44" stroke="rgba(230,190,90,0.35)" stroke-width="2" fill="none"/>
+                <path d="M44 52 Q182 44 316 50" stroke="rgba(210,170,70,0.2)" stroke-width="1" fill="none"/>
+                <!-- タイヤ（ミニバンサイズ） -->
+                <ellipse cx="95" cy="158" rx="40" ry="19" fill="#0A0602"/>
+                <ellipse cx="95" cy="158" rx="28" ry="13" fill="#120A04"/>
+                <ellipse cx="95" cy="158" rx="14" ry="7" fill="#1E1006"/>
+                <ellipse cx="268" cy="158" rx="40" ry="19" fill="#0A0602"/>
+                <ellipse cx="268" cy="158" rx="28" ry="13" fill="#120A04"/>
+                <ellipse cx="268" cy="158" rx="14" ry="7" fill="#1E1006"/>
+                <rect x="33" y="144" width="294" height="16" rx="3" fill="#7A5020"/>
+                <path d="M58 138 L304 138" stroke="rgba(220,180,80,0.6)" stroke-width="1.5"/>
+              </g>
+            </svg>
+            <div class="real-car-material-badge" style="background:rgba(20,12,4,0.95); border-color:rgba(200,160,60,0.4);">樟 / 蜜蝋ワックス</div>
+          </div>
+          <div class="real-car-info">
+            <div class="real-car-make">HONDA</div>
+            <div class="real-car-name">ステップワゴン</div>
+            <div class="real-car-spec">
+              <span>樟（クスノキ）</span><span class="sep">×</span><span>蜜蝋ワックス</span>
+            </div>
+            <div class="real-car-desc">蜜蝋が引き出す暖かな蜂蜜色。木の香りまで感じられる一台。</div>
+            <div class="real-car-price">¥48,000<small>〜</small></div>
+          </div>
+        </div>
+
+      </div><!-- /real-cars-grid -->
+    </div>
+  </section>
+
+  <!-- ===== MAKING VIDEO ===== -->
+  <section class="video-section" id="video">
+    <div class="container">
+      <div class="sec-header fade-up" style="text-align:center;">
+        <p class="sec-tag">MAKING VIDEO</p>
+        <h2 class="sec-title">THE MAKING<br>OF WOOD ART</h2>
+        <p class="sec-title-jp">制作工程 — 一本の木がミニ四駆になるまで</p>
+      </div>
+      <div class="video-wrapper fade-up">
+        <div class="video-player">
+          <iframe
+            src="https://www.youtube.com/embed/GJbycqwqvhI?rel=0&modestbranding=1&color=white"
+            title="Wood Carving - Toyota Land Cruiser LC300 - Woodworking Art"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            class="video-iframe"
+          ></iframe>
+        </div>
+        <div class="video-side">
+          <div class="video-chapter-list">
+            <p class="video-chapter-heading">制作チャプター</p>
+            <div class="video-chapter active"><span class="chap-time">0:00</span><span class="chap-title">木材選定 — 欅との出会い</span></div>
+            <div class="video-chapter"><span class="chap-time">0:42</span><span class="chap-title">荒削り — 大まかな形出し</span></div>
+            <div class="video-chapter"><span class="chap-time">1:18</span><span class="chap-title">細部彫刻 — ドアラインを入れる</span></div>
+            <div class="video-chapter"><span class="chap-time">2:05</span><span class="chap-title">ペーパー研磨 — #80→#400</span></div>
+            <div class="video-chapter"><span class="chap-time">2:48</span><span class="chap-title">漆仕上げ — 3回重ね塗り</span></div>
+            <div class="video-chapter"><span class="chap-time">3:12</span><span class="chap-title">完成 — ミニ四駆シャーシに装着</span></div>
+          </div>
+          <a href="#order" class="btn-red" style="display:inline-block;margin-top:2rem;">この作品をオーダーする →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MY CAR ===== -->
+  <section class="mycar-section" id="mycar">
+    <div class="container">
+      <div class="mycar-inner">
+        <div class="fade-up">
+          <span class="mycar-label">MY CAR × KIBORI</span>
+          <h2 class="mycar-title">YOUR CAR.<br>IN WOOD.</h2>
+          <p class="mycar-title-jp">愛車をそのまま、ミニ四駆に。</p>
+          <p class="mycar-desc">
+            あなたが毎日乗る愛車、憧れのスーパーカー、思い出の旧車。
+            その形を一本の木から削り出し、世界にひとつだけのミニ四駆ボディにします。
+          </p>
+          <div class="mycar-steps">
+            <div class="mycar-step">
+              <div class="mycar-step-num">1</div>
+              <div class="mycar-step-text"><strong>愛車の写真を送る</strong>正面・側面・斜め前の3枚があれば十分。カタログやミニカーの写真でもOK。</div>
+            </div>
+            <div class="mycar-step">
+              <div class="mycar-step-num">2</div>
+              <div class="mycar-step-text"><strong>職人がシルエットを再現</strong>写真をもとに手描き設計図を起こし、ミニ四駆スケールに落とし込みます。</div>
+            </div>
+            <div class="mycar-step">
+              <div class="mycar-step-num">3</div>
+              <div class="mycar-step-text"><strong>木を選んで削り出す</strong>ボディカラーのイメージに合わせた木材を選定。あの曲線美を一刀一刀刻みます。</div>
+            </div>
+            <div class="mycar-step">
+              <div class="mycar-step-num">4</div>
+              <div class="mycar-step-text"><strong>ナンバーを刻印（無料）</strong>ご希望であれば愛車のナンバーや名前を烙印で刻みます。</div>
+            </div>
+          </div>
+          <a href="#order" class="btn-red">愛車ミニ四駆を相談する →</a>
+        </div>
+
+        <div class="mycar-visual-wrap fade-up fade-up-d1">
+          <div class="mycar-transform-box">
+            <div class="mycar-car-panel">
+              <p class="mycar-panel-label" style="color:rgba(255,255,255,0.4);">YOUR CAR</p>
+              <svg viewBox="0 0 380 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:340px;">
+                <defs>
+                  <linearGradient id="cg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4A90C8"/><stop offset="100%" style="stop-color:#1C5A9A"/></linearGradient>
+                  <filter id="cs1"><feDropShadow dx="0" dy="5" stdDeviation="10" flood-color="#1C3A6A" flood-opacity="0.35"/></filter>
+                </defs>
+                <g filter="url(#cs1)">
+                  <path d="M28 140 L35 95 Q52 65 105 56 L155 50 L258 50 Q312 53 344 76 L372 110 L375 140 Z" fill="url(#cg1)"/>
+                  <path d="M112 98 L128 58 Q152 42 196 40 L235 40 Q272 43 288 60 L300 98 Z" fill="#3A80B8" opacity="0.7"/>
+                  <path d="M118 94 L132 62 Q152 46 192 44 L192 94 Z" fill="#B8D8F0" opacity="0.65"/>
+                  <path d="M200 44 L236 44 Q268 47 282 62 L296 94 L200 94 Z" fill="#A0C8E8" opacity="0.6"/>
+                  <line x1="198" y1="52" x2="200" y2="140" stroke="#2A5A9A" stroke-width="1.5" opacity="0.5"/>
+                  <path d="M30 140 L24 154 L64 160 L70 140 Z" fill="#2A5A9A" opacity="0.7"/>
+                  <path d="M346 112 L378 100 L382 108 L350 122 Z" fill="#2A5A9A" opacity="0.7"/>
+                  <rect x="25" y="138" width="352" height="14" rx="4" fill="#1C4A8A"/>
+                  <ellipse cx="100" cy="153" rx="38" ry="19" fill="#1A1A1A"/>
+                  <ellipse cx="100" cy="153" rx="27" ry="14" fill="#2A2A2A"/>
+                  <ellipse cx="305" cy="153" rx="38" ry="19" fill="#1A1A1A"/>
+                  <ellipse cx="305" cy="153" rx="27" ry="14" fill="#2A2A2A"/>
+                  <path d="M32 107 Q38 96 48 92 L54 98 Q44 102 42 110 Z" fill="#FFF8D0" opacity="0.9"/>
+                  <path d="M366 108 Q372 98 376 103 L374 113 Q370 110 367 116 Z" fill="#FF6060" opacity="0.8"/>
+                  <rect x="162" y="138" width="60" height="10" rx="2" fill="#EEE" opacity="0.4"/>
+                  <text x="192" y="146" text-anchor="middle" font-size="6" fill="#888" letter-spacing="1">YOUR CAR</text>
+                </g>
+              </svg>
+            </div>
+            <div class="mycar-arrow-band">
+              <span>TRANSFORM INTO WOOD</span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3 L10 15 M5 11 L10 16 L15 11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="mycar-car-panel">
+              <p class="mycar-panel-label" style="color:rgba(184,115,51,0.7);">KIBORI BODY</p>
+              <svg viewBox="0 0 380 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:340px;">
+                <defs>
+                  <linearGradient id="wg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#C8904A"/><stop offset="100%" style="stop-color:#6A3A10"/></linearGradient>
+                  <filter id="ws1"><feDropShadow dx="0" dy="5" stdDeviation="10" flood-color="#3D1C08" flood-opacity="0.55"/></filter>
+                </defs>
+                <g filter="url(#ws1)">
+                  <path d="M28 140 L35 95 Q52 65 105 56 L155 50 L258 50 Q312 53 344 76 L372 110 L375 140 Z" fill="url(#wg1)"/>
+                  <path d="M35 118 Q132 92 265 86 Q324 83 372 105" stroke="#E8C080" stroke-width="1.5" fill="none" opacity="0.45"/>
+                  <path d="M30 130 Q135 106 268 100 Q326 97 374 118" stroke="#D4A060" stroke-width="1" fill="none" opacity="0.35"/>
+                  <path d="M112 98 L128 58 Q152 42 196 40 L235 40 Q272 43 288 60 L300 98 Z" fill="#7A4A1E" opacity="0.7"/>
+                  <path d="M118 94 L132 62 Q152 46 192 44 L192 94 Z" fill="#2A4A6A" opacity="0.5"/>
+                  <path d="M200 40 L236 40 Q268 43 282 60 L296 94 L200 94 Z" fill="#1A3858" opacity="0.45"/>
+                  <rect x="25" y="138" width="352" height="14" rx="4" fill="#4A2808"/>
+                  <ellipse cx="100" cy="153" rx="38" ry="19" fill="#1A0C04"/>
+                  <ellipse cx="100" cy="153" rx="27" ry="14" fill="#0D0604"/>
+                  <ellipse cx="305" cy="153" rx="38" ry="19" fill="#1A0C04"/>
+                  <ellipse cx="305" cy="153" rx="27" ry="14" fill="#0D0604"/>
+                  <path d="M55 130 L325 130" stroke="#C9A84C" stroke-width="2.2" opacity="0.85"/>
+                  <text x="192" y="120" text-anchor="middle" font-family="Oswald,sans-serif" font-size="9" fill="#C9A84C" letter-spacing="4" opacity="0.9">YOUR CAR × KIBORI</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 制作例 -->
+      <div class="mycar-examples-row fade-up" style="margin-top:3rem;">
+        <div class="mycar-ex-card">
+          <div class="mycar-ex-thumb">
+            <svg viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg" style="width:90%">
+              <defs><linearGradient id="ex1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#C8954A"/><stop offset="100%" style="stop-color:#7A4A1E"/></linearGradient></defs>
+              <path d="M12 80 L18 52 Q32 28 68 22 L108 21 Q148 23 162 42 L178 62 L180 80 Z" fill="url(#ex1)"/>
+              <path d="M15 65 Q68 46 150 48 Q165 50 178 62" stroke="#D4A96A" stroke-width="1" fill="none" opacity="0.5"/>
+              <path d="M55 52 L62 26 Q78 16 105 15 L120 15 Q140 17 148 28 L152 52 Z" fill="#7A4A1E" opacity="0.7"/>
+              <rect x="10" y="78" width="172" height="10" rx="3" fill="#5A3010"/>
+              <ellipse cx="50" cy="86" rx="19" ry="10" fill="#1A0C04"/>
+              <ellipse cx="152" cy="86" rx="19" ry="10" fill="#1A0C04"/>
+              <path d="M28 72 L162 72" stroke="#C9A84C" stroke-width="1.5" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="mycar-ex-info"><div class="mycar-ex-name">トヨタ クラウン</div><div class="mycar-ex-spec">欅 / 漆仕上げ</div></div>
+        </div>
+        <div class="mycar-ex-card">
+          <div class="mycar-ex-thumb">
+            <svg viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg" style="width:90%">
+              <defs><linearGradient id="ex2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#D4A96A"/><stop offset="100%" style="stop-color:#8B5E2A"/></linearGradient></defs>
+              <path d="M10 82 L15 42 Q30 14 72 10 L128 10 Q165 13 178 38 L186 62 L188 82 Z" fill="url(#ex2)"/>
+              <path d="M13 62 Q70 38 150 40 Q170 42 186 56" stroke="#E8C880" stroke-width="1" fill="none" opacity="0.5"/>
+              <path d="M60 44 L64 12 Q82 6 108 6 L130 6 Q152 8 160 18 L163 44 Z" fill="#8B6030" opacity="0.7"/>
+              <rect x="8" y="80" width="182" height="12" rx="3" fill="#5A3010"/>
+              <ellipse cx="50" cy="89" rx="21" ry="11" fill="#1A0C04"/>
+              <ellipse cx="152" cy="89" rx="21" ry="11" fill="#1A0C04"/>
+              <path d="M22 74 L175 74" stroke="#C9A84C" stroke-width="1.5" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="mycar-ex-info"><div class="mycar-ex-name">スズキ ジムニー</div><div class="mycar-ex-spec">栃 / 柿渋塗装</div></div>
+        </div>
+        <div class="mycar-ex-card">
+          <div class="mycar-ex-thumb">
+            <svg viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg" style="width:90%">
+              <defs><linearGradient id="ex3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#B87333"/><stop offset="100%" style="stop-color:#5C3010"/></linearGradient></defs>
+              <path d="M15 76 L22 48 Q42 22 88 16 L118 15 Q155 18 168 38 L182 60 L184 76 Z" fill="url(#ex3)"/>
+              <path d="M18 62 Q80 44 158 46 Q172 48 182 58" stroke="#D4A96A" stroke-width="1" fill="none" opacity="0.5"/>
+              <path d="M80 50 L88 20 Q105 12 118 12 L130 12 Q148 14 155 26 L158 50 Z" fill="#7A4A1E" opacity="0.65"/>
+              <path d="M165 38 L190 30 L192 36 L167 44 Z" fill="#6B4020"/>
+              <rect x="13" y="74" width="173" height="10" rx="3" fill="#4A2A0E"/>
+              <ellipse cx="52" cy="82" rx="18" ry="9" fill="#1A0C04"/>
+              <ellipse cx="148" cy="82" rx="18" ry="9" fill="#1A0C04"/>
+              <path d="M28 67 L165 67" stroke="#C9A84C" stroke-width="1.5" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="mycar-ex-info"><div class="mycar-ex-name">日産 フェアレディZ</div><div class="mycar-ex-spec">黒檀 / オイル仕上げ</div></div>
+        </div>
+        <div class="mycar-ex-card">
+          <div class="mycar-ex-thumb">
+            <svg viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg" style="width:90%">
+              <defs><linearGradient id="ex4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#E8B870"/><stop offset="100%" style="stop-color:#9A6830"/></linearGradient></defs>
+              <path d="M12 80 L14 36 Q22 14 65 10 L148 10 Q175 14 180 38 L184 68 L184 80 Z" fill="url(#ex4)"/>
+              <path d="M14 56 Q72 38 160 40 Q174 42 183 54" stroke="#F0D4A0" stroke-width="1" fill="none" opacity="0.5"/>
+              <path d="M42 38 L44 14 Q60 8 105 8 L105 38 Z" fill="#3A5A7A" opacity="0.5"/>
+              <path d="M108 8 L145 8 Q168 12 172 28 L172 38 L108 38 Z" fill="#2A4A6A" opacity="0.45"/>
+              <rect x="10" y="78" width="176" height="12" rx="3" fill="#5A3010"/>
+              <ellipse cx="50" cy="87" rx="20" ry="10" fill="#1A0C04"/>
+              <ellipse cx="152" cy="87" rx="20" ry="10" fill="#1A0C04"/>
+              <path d="M24 72 L172 72" stroke="#C9A84C" stroke-width="1.5" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="mycar-ex-info"><div class="mycar-ex-name">ホンダ ステップワゴン</div><div class="mycar-ex-spec">樟 / 蜜蝋ワックス</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PHOTO GALLERY ===== -->
+  <section class="photo-gallery-section fade-up">
+    <div class="photo-gallery-inner">
+      <div class="photo-gallery-left">
+        <img src="craftsman.png" alt="木彫師 大岡恵吾 制作風景" loading="lazy">
+        <div class="photo-gallery-caption">
+          <span class="photo-tag">CRAFTSMAN AT WORK</span>
+          <p>「一彫入魂」— 一打ちごとに魂を込める</p>
+        </div>
+      </div>
+      <div class="photo-gallery-right">
+        <img src="gallery_composite.png" alt="工房の風景・完成作品" loading="lazy">
+        <div class="photo-gallery-caption">
+          <span class="photo-tag">WORKSHOP &amp; WORKS</span>
+          <p>木の香りが漂う工房と、手から生まれた作品たち</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
+  <section class="section" id="process">
+    <div class="container">
+      <div class="sec-header fade-up">
+        <p class="sec-tag">PROCESS</p>
+        <h2 class="sec-title">HOW IT'S<br>MADE</h2>
+        <p class="sec-title-jp">一本の木から生まれるまで</p>
+      </div>
+      <div class="process-row fade-up">
+        <div class="process-item">
+          <div class="process-num">01</div>
+          <div class="process-icon">🪵</div>
+          <h3 class="process-title">木材選定</h3>
+          <p class="process-desc">木目の流れ、節の位置、比重まで吟味し、ボディ形状に合わせた最良の木材を選び出します。</p>
+        </div>
+        <div class="process-item">
+          <div class="process-num">02</div>
+          <div class="process-icon">✏️</div>
+          <h3 class="process-title">型取り・粗削り</h3>
+          <p class="process-desc">実車のミニ四駆を参照しながら鉛筆でラインを描き、のこぎりと荒彫り刀で大まかなシルエットを刻み出します。</p>
+        </div>
+        <div class="process-item">
+          <div class="process-num">03</div>
+          <div class="process-icon">🔪</div>
+          <h3 class="process-title">精密彫刻・整形</h3>
+          <p class="process-desc">小刀・彫刻刀・ヤスリを使い分け、空力ラインやディテールを0.1mm単位で仕上げていきます。</p>
+        </div>
+        <div class="process-item">
+          <div class="process-num">04</div>
+          <div class="process-icon">✨</div>
+          <h3 class="process-title">仕上げ・表面処理</h3>
+          <p class="process-desc">蜜蝋・漆・オイル・柿渋など素材に合わせた仕上げを施し、木の美しさを最大限に引き出します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CRAFTSMAN ===== -->
+  <section id="craftsman">
+    <div class="craftsman-grid">
+      <div class="craftsman-photo">
+        <img src="craftsman.png" alt="木彫師 大岡恵吾">
+        <div class="craftsman-photo-overlay"></div>
+        <div class="craftsman-photo-label">
+          <strong>大岡 恵吾</strong>
+          <span>OGO KEIGO / WOOD CARVING MASTER</span>
+        </div>
+      </div>
+      <div class="craftsman-content">
+        <div class="fade-up">
+          <p class="sec-tag">CRAFTSMAN</p>
+          <h2 class="sec-title" style="color:var(--white);">THE MASTER<br>BEHIND<br>THE WORK</h2>
+          <p class="sec-title-jp" style="color:rgba(255,255,255,0.35);">職人・大岡恵吾について</p>
+          <blockquote class="craftsman-quote">
+            「木は正直やな。誤魔化しが利かん。だから面白い。」
+          </blockquote>
+          <p class="craftsman-bio">
+            1961年生まれ、岐阜県高山市出身。64歳。地元の木工職人に師事し、17歳から47年にわたり木工の技術を磨き続ける。幼少期からのミニ四駆好きが高じ、2005年から「走れる木製ミニ四駆ボディ」の制作を開始。木材の特性を活かした軽量かつ剛性の高いボディ設計に独自の技法を確立。現在は後進の育成にも力を入れながら、日々鑿と向き合う。
+          </p>
+          <div class="craftsman-tags">
+            <span class="craftsman-tag">木工歴 47年</span>
+            <span class="craftsman-tag">ミニ四駆制作 20年</span>
+            <span class="craftsman-tag">岐阜県認定伝統工芸士</span>
+            <span class="craftsman-tag">全国木工コンテスト金賞</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MATERIALS ===== -->
+  <section class="section section-gray" id="materials">
+    <div class="container">
+      <div class="sec-header fade-up">
+        <p class="sec-tag">MATERIALS</p>
+        <h2 class="sec-title">WOOD<br>SELECTION</h2>
+        <p class="sec-title-jp">木材が持つそれぞれの個性</p>
+      </div>
+      <div class="materials-grid fade-up">
+        <div class="material-card featured">
+          <div class="material-icon">🌳</div>
+          <div class="material-name">欅（ケヤキ）</div>
+          <p class="material-desc">日本の銘木の代表格。力強い木目と赤みがかった色調が圧倒的な存在感。磨けば磨くほど深みが増す最高素材。</p>
+          <span class="material-tag">PREMIUM</span>
+        </div>
+        <div class="material-card">
+          <div class="material-icon">🪵</div>
+          <div class="material-name">樟（クスノキ）</div>
+          <p class="material-desc">香り高く軽量。独特の杢目が美しく、最も人気の素材。</p>
+        </div>
+        <div class="material-card">
+          <div class="material-icon">⚫</div>
+          <div class="material-name">黒檀</div>
+          <p class="material-desc">真っ黒な艶やかさは唯一無二。最も扱いが難しい高級素材。</p>
+        </div>
+        <div class="material-card">
+          <div class="material-icon">🌿</div>
+          <div class="material-name">栃（瘤材）</div>
+          <p class="material-desc">不規則な縮み杢がコレクター人気No.1。同じ顔は二つとない。</p>
+        </div>
+        <div class="material-card">
+          <div class="material-icon">🍂</div>
+          <div class="material-name">桜（サクラ）</div>
+          <p class="material-desc">淡いピンク色の地肌に細やかな木目。精密ディテール向き。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="section" id="testimonials">
+    <div class="container">
+      <div class="sec-header center fade-up">
+        <p class="sec-tag" style="justify-content:center;">REVIEWS</p>
+        <h2 class="sec-title">CUSTOMER<br>VOICES</h2>
+        <p class="sec-title-jp">お客様の声</p>
+      </div>
+      <div class="testimonials-grid fade-up">
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">子どものころ夢中になっていたミニ四駆。田中さんのボディは本当に芸術品で、職場のデスクに置いても恥ずかしくない一品です。</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">👨‍💼</div>
+            <div><div class="testimonial-name">山田 健司 様</div><div class="testimonial-detail">東京都 / 40代</div></div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">ケヤキで作ってもらいました。写真では伝わらない木目の深み、手に取ったときの重さと温もり、全てが想像を超えていました。</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">👩</div>
+            <div><div class="testimonial-name">鈴木 美咲 様</div><div class="testimonial-detail">大阪府 / 30代</div></div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">父へのプレゼントとしてオーダーしました。木製ボディを見て「こんな形で残してもらえるとは」と感動していました。最高のギフトです。</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">👦</div>
+            <div><div class="testimonial-name">佐藤 翔太 様</div><div class="testimonial-detail">愛知県 / 20代</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ORDER ===== -->
+  <section class="order-section" id="order">
+    <div class="container">
+      <div class="sec-header center fade-up">
+        <p class="sec-tag" style="justify-content:center; color:var(--red);">HOW TO ORDER</p>
+        <h2 class="sec-title" style="color:var(--white);">ORDER FLOW</h2>
+        <p class="sec-title-jp">ご注文の流れ</p>
+        <p class="sec-desc" style="margin:0 auto;">製作期間は通常4〜8週間。お問い合わせからお届けまで丁寧にサポートします。</p>
+      </div>
+      <div class="order-row fade-up">
+        <div class="order-step"><div class="order-step-circle">01</div><h3 class="order-step-title">お問い合わせ</h3><p class="order-step-desc">フォームまたはメールでご希望をお伝えください</p></div>
+        <div class="order-step"><div class="order-step-circle">02</div><h3 class="order-step-title">ヒアリング</h3><p class="order-step-desc">木材・仕上げ・カスタム内容を決定</p></div>
+        <div class="order-step"><div class="order-step-circle">03</div><h3 class="order-step-title">お見積もり</h3><p class="order-step-desc">仕様確定後、正式見積もりをご提示</p></div>
+        <div class="order-step"><div class="order-step-circle">04</div><h3 class="order-step-title">制作・報告</h3><p class="order-step-desc">進捗写真でご報告しながら制作</p></div>
+        <div class="order-step"><div class="order-step-circle">05</div><h3 class="order-step-title">納品</h3><p class="order-step-desc">桐箱入りで丁寧にお届け</p></div>
+      </div>
+      <div class="price-table fade-up">
+        <div class="price-card">
+          <div class="price-tier">STANDARD</div>
+          <div class="price-amount">¥38,000</div>
+          <div class="price-unit">〜（税込）</div>
+          <div class="price-features">
+            <div class="price-feature">国産針葉樹</div>
+            <div class="price-feature">ワックス仕上げ</div>
+            <div class="price-feature">製作期間 約4週間</div>
+          </div>
+        </div>
+        <div class="price-card popular">
+          <div class="price-tier">PREMIUM — 人気</div>
+          <div class="price-amount">¥55,000</div>
+          <div class="price-unit">〜（税込）</div>
+          <div class="price-features">
+            <div class="price-feature">欅 / 黒檀</div>
+            <div class="price-feature">漆・オイル仕上げ</div>
+            <div class="price-feature">製作期間 約6週間</div>
+          </div>
+        </div>
+        <div class="price-card">
+          <div class="price-tier">FULL ORDER</div>
+          <div class="price-amount">¥80,000</div>
+          <div class="price-unit">〜（税込）</div>
+          <div class="price-features">
+            <div class="price-feature">最高級素材</div>
+            <div class="price-feature">完全カスタム</div>
+            <div class="price-feature">愛車ボディ対応</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <div class="cta-banner">
+    <h2 class="cta-banner-title">START YOUR<br>ORDER TODAY</h2>
+    <p class="cta-banner-jp">あなただけの一台を、一緒に作りませんか。</p>
+    <div class="cta-banner-actions">
+      <a href="mailto:info@kibori-mini4wd.jp" class="btn-white">オーダーのご相談</a>
+      <a href="#gallery" class="btn-outline-white">作品をもっと見る</a>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-logo-mark"><span>KI</span><span>BO</span><span>RI</span></div>
+          <div class="footer-brand-name">KIBORI MINI 4WD</div>
+          <p class="footer-tagline">岐阜県高山市の工房より、一本の木から生まれる唯一無二のミニ四駆ボディをお届けしています。</p>
+        </div>
+        <div class="footer-col">
+          <h4>WORKS</h4>
+          <ul>
+            <li><a href="#gallery">作品ギャラリー</a></li>
+            <li><a href="#mycar">愛車ミニ四駆</a></li>
+            <li><a href="#materials">素材一覧</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>ABOUT</h4>
+          <ul>
+            <li><a href="#craftsman">職人について</a></li>
+            <li><a href="#process">制作工程</a></li>
+            <li><a href="#testimonials">お客様の声</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>CONTACT</h4>
+          <ul>
+            <li><a href="#order">オーダー相談</a></li>
+            <li><a href="mailto:info@kibori-mini4wd.jp">メール</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2024 KIBORI MINI 4WD STUDIO. All rights reserved.</span>
+        <span>Handcrafted in Takayama, Gifu, Japan.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // スクロールアニメーション
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ヘッダースクロール
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.style.boxShadow = window.scrollY > 40
+        ? '0 2px 20px rgba(0,0,0,0.12)' : 'none';
+    });
+  </script>
+</body>
+</html>
