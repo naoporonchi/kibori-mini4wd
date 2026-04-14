@@ -445,9 +445,17 @@
     }
     .real-car-photo {
       position: relative;
-      padding: 1.8rem 1rem 2.2rem;
+      padding: 0;
       overflow: hidden;
+      aspect-ratio: 16/10;
+      background: #1a1008;
     }
+    .real-car-photo img {
+      display: block; width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      transition: transform 0.4s ease;
+    }
+    .real-car-card:hover .real-car-photo img { transform: scale(1.04); }
     .real-car-photo svg { display: block; width: 100%; height: auto; }
     .real-car-material-badge {
       position: absolute; bottom: 0.6rem; right: 0.6rem;
@@ -1332,47 +1340,8 @@
         <!-- クラウン -->
         <div class="real-car-card">
           <div class="real-car-photo" style="background:#0A0A0A;">
-            <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="crown1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color:#2A1A08"/><stop offset="40%" style="stop-color:#1A0E04"/><stop offset="100%" style="stop-color:#080402"/>
-                </linearGradient>
-                <linearGradient id="crownSheen" x1="0%" y1="0%" x2="50%" y2="100%">
-                  <stop offset="0%" style="stop-color:#6A4020;stop-opacity:0.8"/><stop offset="50%" style="stop-color:#2A1808;stop-opacity:0.2"/><stop offset="100%" style="stop-color:#0A0604;stop-opacity:0"/>
-                </linearGradient>
-                <radialGradient id="crownLight" cx="40%" cy="30%" r="60%">
-                  <stop offset="0%" style="stop-color:#8B5E2A;stop-opacity:0.6"/><stop offset="100%" style="stop-color:#1A0A04;stop-opacity:0"/>
-                </radialGradient>
-                <filter id="crownShadow"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.9"/></filter>
-              </defs>
-              <rect width="360" height="200" fill="#050303"/>
-              <ellipse cx="180" cy="170" rx="160" ry="18" fill="rgba(0,0,0,0.7)"/>
-              <g filter="url(#crownShadow)">
-                <path d="M30 148 L45 95 Q70 55 120 46 L188 44 Q256 44 290 62 L318 92 L325 145 Z" fill="url(#crown1)"/>
-                <path d="M30 148 L45 95 Q70 55 120 46 L188 44 Q256 44 290 62 L318 92 L325 145 Z" fill="url(#crownLight)"/>
-                <path d="M30 148 L45 95 Q70 55 120 46 L188 44 Q256 44 290 62 L318 92 L325 145 Z" fill="url(#crownSheen)" opacity="0.6"/>
-                <!-- 木目ライン -->
-                <path d="M42 128 Q145 96 278 90 Q312 88 322 108" stroke="#3A2010" stroke-width="1.5" fill="none" opacity="0.6"/>
-                <path d="M36 138 Q142 108 282 102 Q318 100 324 118" stroke="#2A1808" stroke-width="1" fill="none" opacity="0.4"/>
-                <path d="M34 145 Q140 116 282 110 Q320 108 325 126" stroke="#200E04" stroke-width="0.8" fill="none" opacity="0.3"/>
-                <!-- ウインドウ -->
-                <path d="M120 94 L136 56 Q158 42 192 40 L220 40 Q246 42 258 56 L268 88 L268 94 Z" fill="#0A0604" opacity="0.9"/>
-                <path d="M126 90 L140 58 Q160 44 190 42 L190 90 Z" fill="#0D0A14" opacity="0.8"/>
-                <path d="M194 42 L218 42 Q242 44 256 58 L266 88 L194 90 Z" fill="#0A0814" opacity="0.75"/>
-                <!-- 漆光沢ハイライト -->
-                <path d="M60 80 Q150 58 260 70" stroke="rgba(200,150,80,0.25)" stroke-width="2" fill="none"/>
-                <path d="M58 85 Q148 64 258 76" stroke="rgba(160,110,50,0.15)" stroke-width="1" fill="none"/>
-                <!-- タイヤ -->
-                <ellipse cx="98" cy="158" rx="36" ry="18" fill="#080402"/>
-                <ellipse cx="98" cy="158" rx="26" ry="13" fill="#0D0604"/>
-                <ellipse cx="98" cy="158" rx="14" ry="7" fill="#1A0C04"/>
-                <ellipse cx="286" cy="158" rx="36" ry="18" fill="#080402"/>
-                <ellipse cx="286" cy="158" rx="26" ry="13" fill="#0D0604"/>
-                <ellipse cx="286" cy="158" rx="14" ry="7" fill="#1A0C04"/>
-                <rect x="28" y="144" width="300" height="16" rx="4" fill="#1A0A04"/>
-                <path d="M56 138 L308 138" stroke="rgba(200,150,60,0.7)" stroke-width="1.5"/>
-              </g>
-            </svg>
+            
+            <img src="car_crown.png" alt="木彫り トヨタ クラウン ミニ四駆" loading="lazy">
             <div class="real-car-material-badge" style="background:rgba(20,10,4,0.95); border-color:rgba(200,150,60,0.4);">欅 / 漆仕上げ</div>
           </div>
           <div class="real-car-info">
@@ -1389,46 +1358,8 @@
         <!-- ジムニー -->
         <div class="real-car-card">
           <div class="real-car-photo" style="background:#1A1008;">
-            <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="jimny1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color:#C8942A"/><stop offset="50%" style="stop-color:#A07020"/><stop offset="100%" style="stop-color:#6A4812"/>
-                </linearGradient>
-                <radialGradient id="jimnyLight" cx="35%" cy="25%" r="55%">
-                  <stop offset="0%" style="stop-color:#E8B84A;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#3A2008;stop-opacity:0"/>
-                </radialGradient>
-                <filter id="jimnyShadow"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#1A0800" flood-opacity="0.8"/></filter>
-              </defs>
-              <rect width="360" height="200" fill="#0D0804"/>
-              <ellipse cx="180" cy="170" rx="155" ry="16" fill="rgba(0,0,0,0.6)"/>
-              <g filter="url(#jimnyShadow)">
-                <!-- ジムニーのボクシーなボディ -->
-                <path d="M38 148 L38 68 Q40 52 56 48 L104 46 L130 46 L140 36 L220 36 L230 46 L305 46 Q320 48 322 64 L322 148 Z" fill="url(#jimny1)"/>
-                <path d="M38 148 L38 68 Q40 52 56 48 L104 46 L130 46 L140 36 L220 36 L230 46 L305 46 Q320 48 322 64 L322 148 Z" fill="url(#jimnyLight)"/>
-                <!-- 柿渋の木目テクスチャ -->
-                <path d="M45 90 Q180 84 318 88" stroke="#B88020" stroke-width="1.5" fill="none" opacity="0.5"/>
-                <path d="M44 104 Q180 98 318 102" stroke="#9A6A18" stroke-width="1" fill="none" opacity="0.4"/>
-                <path d="M44 118 Q180 112 318 116" stroke="#885818" stroke-width="0.8" fill="none" opacity="0.35"/>
-                <path d="M44 132 Q180 126 318 130" stroke="#7A5014" stroke-width="0.8" fill="none" opacity="0.3"/>
-                <!-- ウインドウ（四角型） -->
-                <rect x="142" y="38" width="76" height="46" rx="2" fill="#0A0C14" opacity="0.85"/>
-                <rect x="148" y="42" width="32" height="40" rx="1" fill="#0D0E18" opacity="0.8"/>
-                <rect x="184" y="42" width="30" height="40" rx="1" fill="#0C0D16" opacity="0.75"/>
-                <!-- スペアタイヤ（ジムニー特徴） -->
-                <circle cx="315" cy="90" r="20" fill="#6A4812" stroke="#8A6020" stroke-width="1.5"/>
-                <circle cx="315" cy="90" r="12" fill="#4A3010"/>
-                <!-- ハイライト -->
-                <path d="M50 58 Q185 48 308 56" stroke="rgba(220,180,80,0.3)" stroke-width="2" fill="none"/>
-                <!-- タイヤ（大きめ） -->
-                <ellipse cx="100" cy="158" rx="38" ry="20" fill="#0A0600"/>
-                <ellipse cx="100" cy="158" rx="28" ry="15" fill="#100A02"/>
-                <ellipse cx="100" cy="158" rx="14" ry="8" fill="#1A1006"/>
-                <ellipse cx="264" cy="158" rx="38" ry="20" fill="#0A0600"/>
-                <ellipse cx="264" cy="158" rx="28" ry="15" fill="#100A02"/>
-                <ellipse cx="264" cy="158" rx="14" ry="8" fill="#1A1006"/>
-                <rect x="36" y="144" width="288" height="16" rx="3" fill="#5A3A10"/>
-              </g>
-            </svg>
+            
+            <img src="car_jimny.png" alt="木彫り スズキ ジムニー ミニ四駆" loading="lazy">
             <div class="real-car-material-badge" style="background:rgba(30,20,8,0.95); border-color:rgba(180,130,40,0.4);">栃 / 柿渋塗装</div>
           </div>
           <div class="real-car-info">
@@ -1445,46 +1376,8 @@
         <!-- フェアレディZ -->
         <div class="real-car-card">
           <div class="real-car-photo" style="background:#060404;">
-            <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="fairz1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color:#1C1208"/><stop offset="40%" style="stop-color:#100C06"/><stop offset="100%" style="stop-color:#060402"/>
-                </linearGradient>
-                <radialGradient id="fairzLight" cx="30%" cy="20%" r="50%">
-                  <stop offset="0%" style="stop-color:#4A3A28;stop-opacity:0.7"/><stop offset="100%" style="stop-color:#060402;stop-opacity:0"/>
-                </radialGradient>
-                <filter id="fairzShadow"><feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#000" flood-opacity="0.95"/></filter>
-              </defs>
-              <rect width="360" height="200" fill="#040202"/>
-              <ellipse cx="180" cy="168" rx="155" ry="14" fill="rgba(0,0,0,0.8)"/>
-              <g filter="url(#fairzShadow)">
-                <!-- フェアレディZのスポーティなロングノーズ -->
-                <path d="M22 148 L28 105 Q36 78 72 60 L148 48 Q180 44 210 46 Q252 46 288 55 Q320 65 334 90 L338 128 L338 148 Z" fill="url(#fairz1)"/>
-                <path d="M22 148 L28 105 Q36 78 72 60 L148 48 Q180 44 210 46 Q252 46 288 55 Q320 65 334 90 L338 128 L338 148 Z" fill="url(#fairzLight)"/>
-                <!-- 黒檀の細かい木目 -->
-                <path d="M30 120 Q185 98 330 108" stroke="#2A1E10" stroke-width="0.8" fill="none" opacity="0.5"/>
-                <path d="M28 130 Q185 108 332 118" stroke="#221808" stroke-width="0.6" fill="none" opacity="0.4"/>
-                <path d="M26 138 Q185 118 334 128" stroke="#1A1406" stroke-width="0.5" fill="none" opacity="0.35"/>
-                <path d="M26 143 Q185 124 335 132" stroke="#180E04" stroke-width="0.5" fill="none" opacity="0.3"/>
-                <path d="M26 146 Q185 128 336 136" stroke="#140C04" stroke-width="0.4" fill="none" opacity="0.25"/>
-                <!-- ファストバックウインドウ -->
-                <path d="M148 86 L162 52 Q178 42 208 42 L230 42 Q262 44 278 58 L294 86 Z" fill="#080608" opacity="0.9"/>
-                <path d="M152 82 L164 54 Q178 44 206 44 L206 82 Z" fill="#0A0810" opacity="0.85"/>
-                <path d="M208 44 L228 44 Q258 46 274 60 L290 82 L208 82 Z" fill="#090710" opacity="0.8"/>
-                <!-- 黒檀の光沢ライン -->
-                <path d="M36 76 Q185 56 320 72" stroke="rgba(80,60,30,0.4)" stroke-width="1.5" fill="none"/>
-                <path d="M35 81 Q184 62 318 78" stroke="rgba(60,45,20,0.25)" stroke-width="1" fill="none"/>
-                <!-- スポーツカーの低いタイヤ -->
-                <ellipse cx="94" cy="155" rx="40" ry="19" fill="#060402"/>
-                <ellipse cx="94" cy="155" rx="30" ry="14" fill="#0A0604"/>
-                <ellipse cx="94" cy="155" rx="16" ry="8" fill="#140C06"/>
-                <ellipse cx="282" cy="155" rx="40" ry="19" fill="#060402"/>
-                <ellipse cx="282" cy="155" rx="30" ry="14" fill="#0A0604"/>
-                <ellipse cx="282" cy="155" rx="16" ry="8" fill="#140C06"/>
-                <rect x="20" y="142" width="320" height="14" rx="3" fill="#100806"/>
-                <path d="M50 135 L312 135" stroke="rgba(80,60,30,0.5)" stroke-width="1"/>
-              </g>
-            </svg>
+            
+            <img src="car_fairladyz.png" alt="木彫り 日産 フェアレディZ ミニ四駆" loading="lazy">
             <div class="real-car-material-badge" style="background:rgba(10,6,4,0.95); border-color:rgba(80,60,30,0.5);">黒檀 / オイル仕上げ</div>
           </div>
           <div class="real-car-info">
@@ -1501,46 +1394,8 @@
         <!-- ステップワゴン -->
         <div class="real-car-card">
           <div class="real-car-photo" style="background:#100C04;">
-            <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="step1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color:#D4A060"/><stop offset="50%" style="stop-color:#B88040"/><stop offset="100%" style="stop-color:#8A5C20"/>
-                </linearGradient>
-                <radialGradient id="stepLight" cx="40%" cy="25%" r="55%">
-                  <stop offset="0%" style="stop-color:#F0C878;stop-opacity:0.5"/><stop offset="100%" style="stop-color:#3A2008;stop-opacity:0"/>
-                </radialGradient>
-                <filter id="stepShadow"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#1A0A00" flood-opacity="0.8"/></filter>
-              </defs>
-              <rect width="360" height="200" fill="#0A0602"/>
-              <ellipse cx="180" cy="170" rx="155" ry="16" fill="rgba(0,0,0,0.6)"/>
-              <g filter="url(#stepShadow)">
-                <!-- ステップワゴンの背の高いボディ -->
-                <path d="M35 148 L35 52 Q36 40 50 38 L308 38 Q324 40 325 52 L325 148 Z" fill="url(#step1)"/>
-                <path d="M35 148 L35 52 Q36 40 50 38 L308 38 Q324 40 325 52 L325 148 Z" fill="url(#stepLight)"/>
-                <!-- 樟の波状木目 -->
-                <path d="M42 72 Q180 66 318 70" stroke="#C89040" stroke-width="1.5" fill="none" opacity="0.5"/>
-                <path d="M40 86 Q180 80 320 84" stroke="#B87830" stroke-width="1.2" fill="none" opacity="0.45"/>
-                <path d="M40 100 Q180 94 320 98" stroke="#A86C28" stroke-width="1" fill="none" opacity="0.4"/>
-                <path d="M40 114 Q180 108 320 112" stroke="#9A6020" stroke-width="0.8" fill="none" opacity="0.35"/>
-                <path d="M40 128 Q180 122 320 126" stroke="#8A5418" stroke-width="0.7" fill="none" opacity="0.3"/>
-                <!-- ミニバンの大きなウインドウ群 -->
-                <rect x="50" y="42" width="80" height="55" rx="2" fill="#0C0E16" opacity="0.85"/>
-                <rect x="140" y="42" width="72" height="55" rx="2" fill="#0A0C14" opacity="0.8"/>
-                <rect x="222" y="42" width="72" height="55" rx="2" fill="#0A0C14" opacity="0.78"/>
-                <!-- 樟の蜜蝋光沢 -->
-                <path d="M44 46 Q182 38 316 44" stroke="rgba(230,190,90,0.35)" stroke-width="2" fill="none"/>
-                <path d="M44 52 Q182 44 316 50" stroke="rgba(210,170,70,0.2)" stroke-width="1" fill="none"/>
-                <!-- タイヤ（ミニバンサイズ） -->
-                <ellipse cx="95" cy="158" rx="40" ry="19" fill="#0A0602"/>
-                <ellipse cx="95" cy="158" rx="28" ry="13" fill="#120A04"/>
-                <ellipse cx="95" cy="158" rx="14" ry="7" fill="#1E1006"/>
-                <ellipse cx="268" cy="158" rx="40" ry="19" fill="#0A0602"/>
-                <ellipse cx="268" cy="158" rx="28" ry="13" fill="#120A04"/>
-                <ellipse cx="268" cy="158" rx="14" ry="7" fill="#1E1006"/>
-                <rect x="33" y="144" width="294" height="16" rx="3" fill="#7A5020"/>
-                <path d="M58 138 L304 138" stroke="rgba(220,180,80,0.6)" stroke-width="1.5"/>
-              </g>
-            </svg>
+            
+            <img src="car_stepwagon.png" alt="木彫り ホンダ ステップワゴン ミニ四駆" loading="lazy">
             <div class="real-car-material-badge" style="background:rgba(20,12,4,0.95); border-color:rgba(200,160,60,0.4);">樟 / 蜜蝋ワックス</div>
           </div>
           <div class="real-car-info">
@@ -1766,7 +1621,7 @@
         </div>
       </div>
       <div class="photo-gallery-right">
-        <img src="gallery_composite.png" alt="工房の風景・完成作品" loading="lazy">
+        <img src="cars_grid.png" alt="木彫りミニ四駆 4台作品" loading="lazy">
         <div class="photo-gallery-caption">
           <span class="photo-tag">WORKSHOP &amp; WORKS</span>
           <p>木の香りが漂う工房と、手から生まれた作品たち</p>
