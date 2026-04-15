@@ -646,6 +646,46 @@
     }
     .process-item:hover::before { transform: scaleX(1); }
 
+    /* ===== PROCESS PHOTO GALLERY ===== */
+    .process-photo-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; margin-top: 3rem;
+    }
+    .process-photo-card {
+      background: var(--white); overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .process-photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.14);
+    }
+    .process-photo-img {
+      aspect-ratio: 4/3; overflow: hidden;
+      background: linear-gradient(135deg, #c8a06a 0%, #8B5E2A 100%);
+      position: relative;
+    }
+    .process-photo-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      transition: transform 0.4s ease;
+    }
+    .process-photo-card:hover .process-photo-img img { transform: scale(1.04); }
+    .process-photo-info {
+      padding: 1.5rem; border-top: 3px solid var(--red);
+    }
+    .process-photo-num {
+      font-family: var(--font-en); font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.18em; color: var(--red);
+    }
+    .process-photo-title {
+      font-size: 1rem; font-weight: 700; letter-spacing: 0.08em;
+      margin: 0.4rem 0 0.5rem;
+    }
+    .process-photo-desc {
+      font-size: 0.82rem; color: var(--gray3); line-height: 1.9;
+    }
+
     /* ===== CRAFTSMAN ===== */
     .craftsman-grid {
       display: grid; grid-template-columns: 5fr 7fr;
@@ -1662,6 +1702,49 @@
           <div class="process-icon">✨</div>
           <h3 class="process-title">仕上げ・表面処理</h3>
           <p class="process-desc">蜜蝋・漆・オイル・柿渋など素材に合わせた仕上げを施し、木の美しさを最大限に引き出します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS PHOTO GALLERY ===== -->
+  <section class="section section-gray" id="process-gallery">
+    <div class="container">
+      <div class="sec-header fade-up" style="text-align:center;">
+        <p class="sec-tag">MAKING PROCESS</p>
+        <h2 class="sec-title">FROM WOOD<br>TO BODY</h2>
+        <p class="sec-title-jp">一本の木からボディが生まれるまで</p>
+      </div>
+      <div class="process-photo-grid fade-up">
+        <div class="process-photo-card">
+          <div class="process-photo-img">
+            <img src="process_01.png" alt="木材選定" loading="lazy">
+          </div>
+          <div class="process-photo-info">
+            <span class="process-photo-num">STEP 01</span>
+            <h3 class="process-photo-title">木材選定</h3>
+            <p class="process-photo-desc">木目の流れ・節・比重を目と手で確かめ、ボディ形状に最良の一本を選ぶ。</p>
+          </div>
+        </div>
+        <div class="process-photo-card">
+          <div class="process-photo-img">
+            <img src="process_02.png" alt="型取り・荒削り" loading="lazy">
+          </div>
+          <div class="process-photo-info">
+            <span class="process-photo-num">STEP 02</span>
+            <h3 class="process-photo-title">型取り・荒削り</h3>
+            <p class="process-photo-desc">実車シルエットを鉛筆でトレースし、のこぎりと荒彫り刀で大まかな形を削り出す。</p>
+          </div>
+        </div>
+        <div class="process-photo-card">
+          <div class="process-photo-img">
+            <img src="process_03.png" alt="精密彫刻" loading="lazy">
+          </div>
+          <div class="process-photo-info">
+            <span class="process-photo-num">STEP 03</span>
+            <h3 class="process-photo-title">精密彫刻・仕上げ</h3>
+            <p class="process-photo-desc">小刀・彫刻刀・ヤスリを使い分け、空力ラインとディテールを0.1mm単位で磨き上げる。</p>
+          </div>
         </div>
       </div>
     </div>
